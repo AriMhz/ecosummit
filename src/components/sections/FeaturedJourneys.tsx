@@ -242,15 +242,14 @@ export const FeaturedJourneys: React.FC = () => {
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] text-[#102942] font-normal leading-[1.12] tracking-tight">
-              Handpicked Adventures
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] text-[#102942] font-normal leading-[1.15] tracking-tight">
+              Our Most Loved
               <br />
-              for Unforgettable Memories
+              Himalayan Treks
             </h2>
 
             <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed font-normal max-w-xl">
-              Explore our most loved trekking and travel experiences, carefully curated to bring you
-              closer to Nepal’s breathtaking beauty, rich culture and authentic local life.
+              Curated routes and expert-led expeditions across Nepal’s iconic mountain trails.
             </p>
           </div>
 
