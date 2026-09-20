@@ -1,0 +1,1 @@
+export { TeamHeroLeadership } from './TeamHeroLeadership';

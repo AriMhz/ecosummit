@@ -1,0 +1,12 @@
+export * from './types';
+export { AboutHero } from './AboutHero';
+export { AboutSharingNepal } from './AboutSharingNepal';
+export { AboutMission } from './AboutMission';
+export { AboutTeamSection } from './AboutTeamSection';
+export { AboutExploreCTA } from './AboutExploreCTA';
+export { AboutEthos } from './AboutEthos';
+export { AboutHeritageSplit } from './AboutHeritageSplit';
+export { AboutCinematicQuote } from './AboutCinematicQuote';
+export { AboutLeadership } from './AboutLeadership';
+export { AboutPorterWelfare } from './AboutPorterWelfare';
+export { AboutCreedCTA } from './AboutCreedCTA';
