@@ -404,33 +404,27 @@ export const TravelGuidePreview: React.FC = () => {
         </div>
 
         {/* ========================================================= */}
-        {/* 3. BOTTOM ACCENTS: SCRIPT & MOUNTAIN LINE ART             */}
+        {/* 3. BOTTOM BAR: CLEAN MINIMALIST DESIGN                    */}
         {/* ========================================================= */}
-        <div className="mt-14 pt-6 border-t border-[#EAE5DC]/70 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-6 border-t border-[#EAE5DC] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           {/* Left subtle note */}
-          <div className="flex items-center gap-2 text-xs text-[#8090A0] font-light tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-[#D46238]/70"></span>
-            <span>Handcrafted field notes & high-altitude insights from Kathmandu</span>
+          <div className="flex items-center gap-2.5 text-xs sm:text-[13px] text-[#5A6B7C] font-normal tracking-wide">
+            <span className="w-2 h-2 rounded-full bg-[#D46238] shrink-0" />
+            <span>Handcrafted field notes &amp; high-altitude insights from Kathmandu</span>
           </div>
 
-          {/* Right handwritten accent with mountain vector sketch */}
-          <div className="flex items-center gap-3">
-            <span className="font-script text-2xl sm:text-3xl text-[#526B7E] italic select-none">
-              More Journeys, More Stories
+          {/* Right clean modern action */}
+          <div className="flex items-center gap-4">
+            <span className="font-sans text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#12365B]">
+              More Journeys
             </span>
-            <svg 
-              className="w-10 h-7 text-[#526B7E]" 
-              viewBox="0 0 42 26" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="1.6" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
+            <Link
+              to="/treks"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-[#CBD5E1] text-xs font-semibold text-[#142332] hover:bg-[#12365B] hover:text-white hover:border-[#12365B] transition-all shadow-xs group"
             >
-              <path d="M3 23L14 7L23 18L30 10L39 23H3Z" />
-              <path d="M14 7L18 13L23 18" />
-              <path d="M30 10L33 15" />
-            </svg>
+              <span>Explore All Treks</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
       </div>

@@ -187,51 +187,20 @@ export const TrailStories: React.FC = () => {
         </svg>
       </div>
 
-      {/* ── Section Header with Framed Sketches ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14">
-        {/* Top-Left Mountain Sketch & Handwritten Script */}
-        <div className="absolute left-4 sm:left-6 lg:left-8 top-0 pointer-events-none select-none hidden lg:block">
-          <svg width="145" height="65" viewBox="0 0 150 70" fill="none" stroke="#A8B2BD" strokeWidth="1.2">
-            <path d="M10 65 L 50 20 L 75 42 L 115 12 L 145 65" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M50 20 L 60 36 L 75 42" strokeLinecap="round" />
-            <path d="M115 12 L 102 34 L 88 38" strokeLinecap="round" />
-            <path d="M115 12 L 122 30 L 136 55" strokeLinecap="round" />
-            <path d="M25 42 L 38 50 L 50 65" strokeLinecap="round" />
-          </svg>
-          <span className="font-['Caveat'] text-xl sm:text-2xl text-[#6B7D8F] block -rotate-6 -mt-2 ml-3 font-semibold whitespace-nowrap">
-            Same Country, <br />
-            A Thousand Stories
-          </span>
-        </div>
-
-        {/* Top-Right Compass Rose Sketch */}
-        <div className="absolute right-4 sm:right-6 lg:right-8 top-1 pointer-events-none select-none hidden lg:block">
-          <svg width="38" height="62" viewBox="0 0 40 65" fill="none" stroke="#A8B2BD" strokeWidth="1.2">
-            <text x="20" y="12" textAnchor="middle" fontSize="10" fontFamily="sans-serif" fill="#64748B" fontWeight="600">
-              N
-            </text>
-            <path d="M20 16 L 20 60" strokeLinecap="round" />
-            <path d="M9 38 L 31 38" strokeLinecap="round" />
-            <polygon points="20,18 17,38 20,34" fill="#64748B" />
-            <polygon points="20,18 23,38 20,34" fill="#A8B2BD" />
-            <polygon points="20,60 17,38 20,42" fill="#CBD5E1" />
-            <polygon points="20,60 23,38 20,42" fill="#E2E8F0" />
-          </svg>
-        </div>
-
-        {/* Centered Editorial Header */}
-        <div className="max-w-xl mx-auto text-center px-4">
-          {/* Eyebrow with horizontal dash lines */}
+      {/* ── Section Header with Slogan ── */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
+        <div className="text-center max-w-3xl mx-auto">
+          {/* Eyebrow with Slogan */}
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center gap-3 mb-3 text-xs font-simplon-mono uppercase tracking-[0.26em] font-semibold text-[#5A6978]"
+            className="inline-flex items-center justify-center gap-2.5 text-xs sm:text-[13px] font-bold uppercase tracking-[0.24em] text-[#D46238] mb-3"
           >
-            <span className="w-8 sm:w-12 h-[1.5px] bg-[#5A6978]/40" />
-            <span>VISUAL CHRONICLES &middot; NEPAL</span>
-            <span className="w-8 sm:w-12 h-[1.5px] bg-[#5A6978]/40" />
+            <span className="w-5 h-[2px] bg-[#D46238]" />
+            <span>MORE JOURNEYS · MORE STORIES</span>
+            <span className="w-5 h-[2px] bg-[#D46238]" />
           </motion.div>
 
           {/* Main Title: Recent Gallery */}
@@ -240,20 +209,20 @@ export const TrailStories: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-[56px] text-[#142938] font-normal leading-tight tracking-tight mb-3"
+            className="font-sans font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] text-[#12365B] tracking-tight leading-tight"
           >
             Recent Gallery
           </motion.h2>
 
-          {/* Subtitle */}
+          {/* Subtitle & Brand Slogan */}
           <motion.p
             initial={shouldReduceMotion ? false : { opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="font-sans text-xs sm:text-sm text-[#596573] max-w-md mx-auto leading-relaxed font-light"
+            className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-2xl mx-auto mt-3 font-normal"
           >
-            Moments from mountains, culture, and unforgettable journeys across Nepal.
+            Same Country, A Thousand Stories — Moments from mountains, culture, and unforgettable journeys across Nepal.
           </motion.p>
         </div>
       </div>
