@@ -4,7 +4,6 @@ import {
   Send, 
   CheckCircle2, 
   ShieldCheck, 
-  Compass, 
   Clock, 
   MapPin, 
   Phone, 
@@ -126,17 +125,29 @@ export const FinalCTA: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 sm:p-3.5 bg-white/90 backdrop-blur-xs rounded-2xl border border-[#EAE5DC] shadow-[0_4px_16px_rgba(0,0,0,0.02)] hover:border-[#CBA46E]/60 transition-all">
-                  <div className="w-8 h-8 rounded-xl bg-[#D46238]/10 text-[#D46238] flex items-center justify-center shrink-0 mt-0.5">
-                    <Compass className="w-4 h-4 text-[#D46238]" />
+                <div className="relative flex items-start gap-3 p-3.5 sm:p-4 bg-gradient-to-br from-white via-white to-[#FDF8F3] rounded-2xl border-2 border-[#D46238]/40 shadow-[0_6px_20px_rgba(212,98,56,0.08)] hover:border-[#D46238] transition-all group">
+                  <div className="w-9 h-9 rounded-xl bg-[#D46238] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm group-hover:scale-105 transition-transform">
+                    <ShieldCheck className="w-5 h-5 text-white" />
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-[#142332] text-xs sm:text-[13px]">
-                      Safety & Acclimatisation Priority
-                    </h4>
-                    <p className="text-[11px] text-[#5D6B78] mt-0.5 leading-relaxed">
-                      Custom conservative ascent schedules, pulse oximetry tracking, and round-the-clock emergency helicopter standby.
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between gap-2 flex-wrap mb-1">
+                      <h4 className="font-bold text-[#142332] text-xs sm:text-[13.5px]">
+                        Safety &amp; Acclimatisation Priority
+                      </h4>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#D46238] bg-[#D46238]/10 px-2.5 py-0.5 rounded-full">
+                        98% Summit Safety
+                      </span>
+                    </div>
+                    <p className="text-[11.5px] text-[#4A5568] leading-relaxed">
+                      Custom conservative ascent schedules, twice-daily pulse oximetry tracking, and <strong className="text-[#142332] font-semibold">round-the-clock emergency helicopter standby</strong>.
                     </p>
+                    {/* Visual Helicopter Standby Badge */}
+                    <div className="mt-2.5 inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#FAF4ED] border border-[#E8D7C8] text-[10.5px] font-semibold text-[#8C3D1B]">
+                      <svg className="w-3.5 h-3.5 shrink-0 text-[#D46238]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 10h18M12 6v4M4 14h12a4 4 0 0 0 4-4v0a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2a2 2 0 0 0 2 2h0M9 14v4M15 14v4M7 18h10" />
+                      </svg>
+                      <span>24/7 Helicopter Evacuation Standby Guaranteed</span>
+                    </div>
                   </div>
                 </div>
 
