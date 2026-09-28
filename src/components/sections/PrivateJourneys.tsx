@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
   ArrowRight,
   Users,
@@ -13,7 +12,6 @@ import {
   MapPin,
 } from 'lucide-react';
 import boudhaBg from '../../assets/boudha_bg.png';
-import boudhaThumb from '../../assets/boudha_card_thumb.jpg';
 
 export const PrivateJourneys: React.FC = () => {
   const features = [
@@ -291,41 +289,6 @@ export const PrivateJourneys: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Bottom-Right Floating Quote Card */}
-            <motion.div
-              whileHover={{ y: -3, scale: 1.01 }}
-              transition={{ duration: 0.3 }}
-              className="relative self-end w-full sm:w-auto max-w-sm sm:max-w-md lg:max-w-[460px] rounded-2xl sm:rounded-3xl bg-[#EBE4D5]/95 backdrop-blur-md p-3.5 sm:p-4 lg:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-[#DEC096]/40 text-[#1D211F]"
-            >
-              <div className="flex items-center gap-3.5 sm:gap-4">
-                {/* Quote Text Column */}
-                <div className="flex-1 space-y-2">
-                  {/* Decorative Big Serif Quote Mark */}
-                  <span className="font-serif text-2xl sm:text-3xl text-[#CBA46E] leading-none block -mb-1">
-                    “
-                  </span>
-                  <p className="font-serif italic text-xs sm:text-[13px] lg:text-[13.5px] text-[#222725] leading-snug">
-                    “The true luxury of travel is having the time, space and freedom to experience a place deeply.”
-                  </p>
-                  <div className="flex items-center gap-2 pt-0.5">
-                    <span className="w-4 h-[1.5px] bg-[#CBA46E]" />
-                    <span className="text-[8px] sm:text-[9px] font-sans tracking-[0.22em] text-[#635E54] uppercase font-semibold">
-                      NEPAL PRIVATE JOURNEYS
-                    </span>
-                  </div>
-                </div>
-
-                {/* Stupa Photo Thumbnail */}
-                <div className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 lg:w-22 lg:h-22 aspect-square rounded-xl sm:rounded-2xl overflow-hidden shadow-md border border-[#CBA46E]/30">
-                  <img
-                    src={boudhaThumb}
-                    alt="Kathmandu Boudhanath Stupa"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>
