@@ -10,6 +10,7 @@ import {
   MapPin,
   Check,
   ArrowRight,
+  ArrowLeft,
   Phone,
   Plane,
   Car,
@@ -60,6 +61,7 @@ export const Booking: React.FC = () => {
   }, [slugParam]);
 
   // Booking Form State
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const [travelersCount, setTravelersCount] = useState(1);
   const [paymentOption, setPaymentOption] = useState<'deposit' | 'full'>('deposit');
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -142,8 +144,39 @@ export const Booking: React.FC = () => {
     setTravelersCount((prev) => Math.max(prev - 1, 1));
   };
 
+  const handleStep1Continue = () => {
+    setCurrentStep(2);
+    window.scrollTo({ top: 160, behavior: 'smooth' });
+  };
+
+  const handleStep2Continue = () => {
+    if (!leadTraveler.fullName.trim()) {
+      alert('Please enter your full name as shown on your passport.');
+      return;
+    }
+    if (!leadTraveler.email.trim() || !leadTraveler.email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    if (!leadTraveler.mobileNumber.trim()) {
+      alert('Please provide your mobile or WhatsApp contact number.');
+      return;
+    }
+    if (!leadTraveler.dob) {
+      alert('Please enter your date of birth for permit processing.');
+      return;
+    }
+    setCurrentStep(3);
+    window.scrollTo({ top: 160, behavior: 'smooth' });
+  };
+
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!leadTraveler.fullName.trim() || !leadTraveler.email.trim() || !leadTraveler.dob) {
+      alert('Please complete all required fields for the lead traveler in Step 2.');
+      setCurrentStep(2);
+      return;
+    }
     if (!termsAccepted) {
       alert('Please accept the booking terms and conditions to proceed.');
       return;
@@ -321,6 +354,70 @@ export const Booking: React.FC = () => {
             {/* ── LEFT COLUMN: 3-STEP RESERVATION FORM               ── */}
             {/* ═════════════════════════════════════════════════════════ */}
             <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+              {/* ── STEPPER PROGRESS BAR ── */}
+              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-4 sm:p-5 shadow-xs">
+                <div className="flex items-center justify-between gap-2 max-w-xl mx-auto">
+                  {[
+                    { step: 1, label: 'Party Size & Dates' },
+                    { step: 2, label: 'Traveler Details' },
+                    { step: 3, label: 'Payment & Hold' },
+                  ].map((s, idx, arr) => {
+                    const isCurrent = currentStep === s.step;
+                    const isCompleted = currentStep > s.step;
+                    return (
+                      <React.Fragment key={s.step}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (s.step < currentStep) {
+                              setCurrentStep(s.step);
+                              window.scrollTo({ top: 160, behavior: 'smooth' });
+                            }
+                          }}
+                          disabled={s.step > currentStep}
+                          className="flex items-center gap-2 group cursor-pointer disabled:cursor-not-allowed text-left transition-colors"
+                        >
+                          <div
+                            className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold font-mono transition-all ${
+                              isCurrent
+                                ? 'bg-[#142332] text-[#E5A93C] ring-4 ring-[#142332]/10 shadow-xs'
+                                : isCompleted
+                                ? 'bg-[#2E7D32] text-white hover:bg-[#256828]'
+                                : 'bg-slate-100 text-slate-400'
+                            }`}
+                          >
+                            {isCompleted ? <Check className="w-4 h-4" /> : s.step}
+                          </div>
+                          <div className="hidden sm:block">
+                            <span className="text-[10px] text-[#7A8895] block uppercase font-mono tracking-wider">
+                              Step 0{s.step}
+                            </span>
+                            <span
+                              className={`text-xs font-bold block truncate max-w-[130px] ${
+                                isCurrent
+                                  ? 'text-[#142332]'
+                                  : isCompleted
+                                  ? 'text-[#2E7D32]'
+                                  : 'text-slate-400'
+                              }`}
+                            >
+                              {s.label}
+                            </span>
+                          </div>
+                        </button>
+                        {idx < arr.length - 1 && (
+                          <div
+                            className={`flex-1 h-[2px] transition-colors rounded-full ${
+                              currentStep > idx + 1 ? 'bg-[#2E7D32]' : 'bg-slate-200'
+                            }`}
+                          />
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* ── PACKAGE SUMMARY BANNER CARD (TOP) ── */}
               <div className="bg-white rounded-2xl border border-[#E8E2D8] p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <img
@@ -369,89 +466,104 @@ export const Booking: React.FC = () => {
               </div>
 
               {/* ── STEP 1: HOW MANY ARE TRAVELLING? ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5">
-                <div className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                    1
-                  </span>
-                  <div>
-                    <h3 className="font-sans text-lg font-bold text-[#142332]">
-                      How many are travelling?
-                    </h3>
-                    <p className="text-xs text-[#566370]">
-                      Group discount automatically calculated based on your private party size.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Group Discount Table */}
-                <div className="bg-[#FAF8F5] border border-[#E8E2D8] rounded-xl p-3.5 space-y-1.5 text-xs sm:text-[13px] font-sans">
-                  {discountTiers.map((tier) => {
-                    const isActive = travelersCount >= tier.min && travelersCount <= tier.max;
-                    return (
-                      <div
-                        key={tier.label}
-                        className={`flex items-center justify-between py-1.5 px-3 rounded-lg transition-all ${
-                          isActive
-                            ? 'bg-[#142332] text-white font-bold shadow-xs'
-                            : 'text-[#4A5568] hover:bg-white/60'
-                        }`}
-                      >
-                        <span className="flex items-center gap-2">
-                          {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#E5A93C]" />}
-                          <span>{tier.label}</span>
-                        </span>
-                        <span className="font-mono text-slate-300">··········</span>
-                        <span className={`font-mono font-bold ${isActive ? 'text-[#E5A93C]' : 'text-[#142332]'}`}>
-                          US$ {tier.perPerson.toLocaleString()}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Traveler Counter */}
-                <div className="flex items-center justify-between pt-2">
-                  <span className="text-xs font-semibold text-[#142332]">No of Travelers</span>
-                  <div className="flex items-center border border-[#CBD5E1] rounded-lg overflow-hidden bg-white shadow-xs">
-                    <button
-                      type="button"
-                      onClick={handleDecrement}
-                      disabled={travelersCount <= 1}
-                      className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base font-bold cursor-pointer"
-                    >
-                      −
-                    </button>
-                    <span className="w-12 text-center text-sm font-bold font-mono text-[#142332]">
-                      {travelersCount}
+              {currentStep === 1 && (
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                      1
                     </span>
+                    <div>
+                      <h3 className="font-sans text-lg font-bold text-[#142332]">
+                        How many are travelling?
+                      </h3>
+                      <p className="text-xs text-[#566370]">
+                        Group discount automatically calculated based on your private party size.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Group Discount Table */}
+                  <div className="bg-[#FAF8F5] border border-[#E8E2D8] rounded-xl p-3.5 space-y-1.5 text-xs sm:text-[13px] font-sans">
+                    {discountTiers.map((tier) => {
+                      const isActive = travelersCount >= tier.min && travelersCount <= tier.max;
+                      return (
+                        <div
+                          key={tier.label}
+                          className={`flex items-center justify-between py-1.5 px-3 rounded-lg transition-all ${
+                            isActive
+                              ? 'bg-[#142332] text-white font-bold shadow-xs'
+                              : 'text-[#4A5568] hover:bg-white/60'
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#E5A93C]" />}
+                            <span>{tier.label}</span>
+                          </span>
+                          <span className="font-mono text-slate-300">··········</span>
+                          <span className={`font-mono font-bold ${isActive ? 'text-[#E5A93C]' : 'text-[#142332]'}`}>
+                            US$ {tier.perPerson.toLocaleString()}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Traveler Counter */}
+                  <div className="flex items-center justify-between pt-2">
+                    <span className="text-xs font-semibold text-[#142332]">No of Travelers</span>
+                    <div className="flex items-center border border-[#CBD5E1] rounded-lg overflow-hidden bg-white shadow-xs">
+                      <button
+                        type="button"
+                        onClick={handleDecrement}
+                        disabled={travelersCount <= 1}
+                        className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base font-bold cursor-pointer"
+                      >
+                        −
+                      </button>
+                      <span className="w-12 text-center text-sm font-bold font-mono text-[#142332]">
+                        {travelersCount}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleIncrement}
+                        disabled={travelersCount >= 20}
+                        className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base font-bold cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Step 1 Continue Button */}
+                  <div className="pt-4 border-t border-slate-100 flex justify-end">
                     <button
                       type="button"
-                      onClick={handleIncrement}
-                      disabled={travelersCount >= 20}
-                      className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base font-bold cursor-pointer"
+                      onClick={handleStep1Continue}
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                     >
-                      +
+                      <span>Continue to Traveler Details (Step 2)</span>
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* ── STEP 2: LEAD TRAVELLER & FLIGHT COORDINATION ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5">
-                <div className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                    2
-                  </span>
-                  <div>
-                    <h3 className="font-sans text-lg font-bold text-[#142332]">
-                      Lead Traveller &amp; Arrival Logistics
-                    </h3>
-                    <p className="text-xs text-[#566370]">
-                      Primary contact details for national park permits, airport pickup, and operations.
-                    </p>
+              {currentStep === 2 && (
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                      2
+                    </span>
+                    <div>
+                      <h3 className="font-sans text-lg font-bold text-[#142332]">
+                        Lead Traveller &amp; Arrival Logistics
+                      </h3>
+                      <p className="text-xs text-[#566370]">
+                        Primary contact details for national park permits, airport pickup, and operations.
+                      </p>
+                    </div>
                   </div>
-                </div>
 
                 <div className="space-y-4 text-xs font-sans">
                   {/* Row 1: Full Name & Email Address */}
@@ -683,10 +795,36 @@ export const Booking: React.FC = () => {
                     />
                   </div>
                 </div>
-              </div>
 
-              {/* ── STEP 3: PAYMENT OPTIONS ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5">
+                {/* Step 2 Back & Continue Buttons */}
+                <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentStep(1);
+                      window.scrollTo({ top: 160, behavior: 'smooth' });
+                    }}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Step 1</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleStep2Continue}
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                  >
+                    <span>Continue to Payment Selection (Step 3)</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ── STEP 3: PAYMENT OPTIONS ── */}
+            {currentStep === 3 && (
+              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
                 <div className="flex items-start gap-3">
                   <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                     3
@@ -771,12 +909,24 @@ export const Booking: React.FC = () => {
                   </label>
                 </div>
 
-                {/* Primary Proceed CTA Button */}
-                <div className="pt-2">
+                {/* Primary Proceed CTA Button & Back Button */}
+                <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentStep(2);
+                      window.scrollTo({ top: 160, behavior: 'smooth' });
+                    }}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Traveler Details</span>
+                  </button>
+
                   <button
                     type="submit"
                     disabled={isSubmitting || !termsAccepted}
-                    className="w-full py-4 px-6 rounded-xl bg-[#D46238] hover:bg-[#B8522E] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto py-4 px-8 rounded-xl bg-[#D46238] hover:bg-[#B8522E] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <span>Securing Your Reservation...</span>
@@ -789,6 +939,7 @@ export const Booking: React.FC = () => {
                   </button>
                 </div>
               </div>
+            )}
             </div>
 
             {/* ═════════════════════════════════════════════════════════ */}

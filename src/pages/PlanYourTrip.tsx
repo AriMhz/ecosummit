@@ -15,6 +15,9 @@ import {
   Sparkles,
   Search,
   X,
+  ArrowRight,
+  ArrowLeft,
+  Check,
 } from 'lucide-react';
 import { allJourneys } from '../data/journeys';
 import { companyData } from '../data/company';
@@ -67,6 +70,7 @@ export const PlanYourTrip: React.FC = () => {
     phoneNumber: '',
   });
 
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -329,517 +333,668 @@ ${travelPreferences ? `• Preferences: ${travelPreferences}` : ''}`;
             </div>
           </div>
         ) : (
-          /* ── MAIN INQUIRY FORM (SAME CLEAN DESIGN AS BOOKING, NO PAYMENT) ── */
+          /* ── MAIN INQUIRY FORM (STEP-BY-STEP WIZARD) ── */
           <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* ═════════════════════════════════════════════════════════ */}
             {/* ── LEFT COLUMN: STRUCTURED INQUIRY CARDS              ── */}
             {/* ═════════════════════════════════════════════════════════ */}
             <div className="lg:col-span-8 space-y-6 sm:space-y-7">
-              {/* ── CARD 1: HOW WOULD YOU LIKE TO TRAVEL? ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5">
-                <div className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                    1
-                  </span>
-                  <div>
-                    <h2 className="font-sans text-lg font-bold text-[#142332]">
-                      How would you like to travel? <span className="text-[#D46238]">*</span>
-                    </h2>
-                    <p className="text-xs text-[#566370]">
-                      Select your party setup. Private guide and dedicated porter support tailored for your group.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 4 Cards matching Inspiration Image 1 */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                  {travelStyles.map((style) => {
-                    const isSelected = travelStyle === style.id;
-                    const IconComp = style.icon;
+              {/* ── STEPPER PROGRESS BAR ── */}
+              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-4 sm:p-5 shadow-xs">
+                <div className="flex items-center justify-between gap-1.5 sm:gap-2 max-w-2xl mx-auto">
+                  {[
+                    { step: 1, label: 'Travel Style' },
+                    { step: 2, label: 'Dates' },
+                    { step: 3, label: 'Trip & Region' },
+                    { step: 4, label: 'Your Details' },
+                  ].map((s, idx, arr) => {
+                    const isCurrent = currentStep === s.step;
+                    const isCompleted = currentStep > s.step;
                     return (
-                      <button
-                        key={style.id}
-                        type="button"
-                        onClick={() => setTravelStyle(style.id)}
-                        className={`p-4 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2.5 ${
-                          isSelected
-                            ? 'bg-[#FAF8F5] border-[#D46238] shadow-xs'
-                            : 'bg-white hover:bg-[#FAF8F5] border-[#E8E2D8]'
-                        }`}
-                      >
-                        <div
-                          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
-                            isSelected ? 'bg-[#D46238] text-white' : 'bg-orange-50 text-[#D46238]'
-                          }`}
-                        >
-                          <IconComp className="w-6 h-6" />
-                        </div>
-
-                        {/* Radio Dot indicator */}
-                        <div
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-[#D46238] bg-[#D46238]' : 'border-slate-300 bg-white'
-                          }`}
-                        >
-                          {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </div>
-
-                        <span
-                          className={`text-xs font-semibold ${
-                            isSelected ? 'text-[#D46238]' : 'text-[#334155]'
-                          }`}
-                        >
-                          {style.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Traveler Count */}
-                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-                  <div>
-                    <span className="text-xs font-bold text-[#142332] block">No. of Travelers</span>
-                    <span className="text-[11px] text-[#7A8895]">Total persons travelling in your party</span>
-                  </div>
-
-                  <div className="flex items-center border border-[#CBD5E1] rounded-lg overflow-hidden bg-white shadow-2xs">
-                    <button
-                      type="button"
-                      onClick={() => setTravelersCount((prev) => Math.max(1, prev - 1))}
-                      disabled={travelersCount <= 1}
-                      className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed text-base font-bold cursor-pointer"
-                    >
-                      −
-                    </button>
-                    <span className="w-12 text-center text-sm font-bold font-mono text-[#142332]">
-                      {travelersCount}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setTravelersCount((prev) => Math.min(25, prev + 1))}
-                      disabled={travelersCount >= 25}
-                      className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed text-base font-bold cursor-pointer"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* ── CARD 2: WHEN DO YOU PLAN TO TRAVEL? ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5">
-                <div className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                    2
-                  </span>
-                  <div>
-                    <h2 className="font-sans text-lg font-bold text-[#142332]">
-                      When do you plan to travel? <span className="text-[#D46238]">*</span>
-                    </h2>
-                    <p className="text-xs text-[#566370]">
-                      Fixed dates or still deciding? Choose your current stage of planning.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 3 Date Options matching Inspiration Image 2 */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                  {dateOptions.map((opt) => {
-                    const isSelected = dateType === opt.id;
-                    const IconComp = opt.icon;
-                    return (
-                      <button
-                        key={opt.id}
-                        type="button"
-                        onClick={() => setDateType(opt.id as any)}
-                        className={`p-4 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2.5 ${
-                          isSelected
-                            ? 'bg-[#FAF8F5] border-[#D46238] shadow-xs'
-                            : 'bg-white hover:bg-[#FAF8F5] border-[#E8E2D8]'
-                        }`}
-                      >
-                        <div
-                          className={`w-11 h-11 rounded-xl flex items-center justify-center transition-colors ${
-                            isSelected ? 'bg-[#D46238] text-white' : 'bg-orange-50 text-[#D46238]'
-                          }`}
-                        >
-                          <IconComp className="w-5 h-5" />
-                        </div>
-
-                        <div
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-[#D46238] bg-[#D46238]' : 'border-slate-300 bg-white'
-                          }`}
-                        >
-                          {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </div>
-
-                        <span
-                          className={`text-xs font-semibold ${
-                            isSelected ? 'text-[#D46238]' : 'text-[#334155]'
-                          }`}
-                        >
-                          {opt.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Trip Starting & Ending Dates */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-                  <div>
-                    <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                      Trip Starting Date <span className="text-[#D46238]">*</span>
-                    </label>
-                    <div className="relative">
-                      <Calendar className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3" />
-                      <input
-                        type="date"
-                        required
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                      Trip Ending Date <span className="text-[#7A8895] font-normal">(Approximate)</span>
-                    </label>
-                    <div className="relative">
-                      <Calendar className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3" />
-                      <input
-                        type="date"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* ── CARD 3: WHAT KIND OF TRIP ARE YOU LOOKING FOR? ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-4">
-                <div className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                    3
-                  </span>
-                  <div>
-                    <h2 className="font-sans text-lg font-bold text-[#142332]">
-                      What kind of trip are you looking for? <span className="text-[#D46238]">*</span>
-                    </h2>
-                    <p className="text-xs text-[#566370]">
-                      Do you have a specific destination or route in mind, or do you want our guidance?
-                    </p>
-                  </div>
-                </div>
-
-                {/* Radio selection matching Inspiration Image 3 */}
-                <div className="space-y-2 pt-1">
-                  <label className="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-[#142332]">
-                    <input
-                      type="radio"
-                      name="tripPlanType"
-                      checked={tripPlanType === 'preferred'}
-                      onChange={() => setTripPlanType('preferred')}
-                      className="w-4 h-4 text-[#D46238] focus:ring-[#D46238]"
-                    />
-                    <span>I have my preferred Travel Plan / Trek.</span>
-                  </label>
-
-                  <label className="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-[#142332]">
-                    <input
-                      type="radio"
-                      name="tripPlanType"
-                      checked={tripPlanType === 'advice'}
-                      onChange={() => setTripPlanType('advice')}
-                      className="w-4 h-4 text-[#D46238] focus:ring-[#D46238]"
-                    />
-                    <span>No, I am Looking for your Travel Expert Advice.</span>
-                  </label>
-                </div>
-
-                {tripPlanType === 'preferred' && (
-                  <div className="space-y-3 pt-2">
-                    <div ref={searchContainerRef} className="relative">
-                      <div className="flex items-center justify-between mb-1">
-                        <label className="block text-[11px] font-bold text-[#334155]">
-                          Where would you like to visit? <span className="text-[#D46238]">*</span>
-                        </label>
-                        <span className="text-[10.5px] text-[#7A8895]">Search trek or type custom destination</span>
-                      </div>
-
-                      <div className="relative">
-                        <Search className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3 pointer-events-none" />
-                        <input
-                          type="text"
-                          required={tripPlanType === 'preferred'}
-                          value={searchQuery}
-                          onFocus={() => setIsDropdownOpen(true)}
-                          onChange={(e) => {
-                            setSearchQuery(e.target.value);
-                            setCustomDestination(e.target.value);
-                            setIsDropdownOpen(true);
+                      <React.Fragment key={s.step}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (s.step < currentStep) {
+                              setCurrentStep(s.step);
+                              window.scrollTo({ top: 200, behavior: 'smooth' });
+                            }
                           }}
-                          placeholder="Type to search or suggest trek (e.g. Everest, Annapurna, Langtang, Mustang...)"
-                          className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-9 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          disabled={s.step > currentStep}
+                          className="flex items-center gap-2 group cursor-pointer disabled:cursor-not-allowed text-left transition-colors"
+                        >
+                          <div
+                            className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold font-mono transition-all ${
+                              isCurrent
+                                ? 'bg-[#142332] text-[#E5A93C] ring-4 ring-[#142332]/10 shadow-xs'
+                                : isCompleted
+                                ? 'bg-[#2E7D32] text-white hover:bg-[#256828]'
+                                : 'bg-slate-100 text-slate-400'
+                            }`}
+                          >
+                            {isCompleted ? <Check className="w-4 h-4" /> : s.step}
+                          </div>
+                          <div className="hidden sm:block">
+                            <span className="text-[10px] text-[#7A8895] block uppercase font-mono tracking-wider">
+                              Step 0{s.step}
+                            </span>
+                            <span
+                              className={`text-xs font-bold block truncate max-w-[100px] ${
+                                isCurrent
+                                  ? 'text-[#142332]'
+                                  : isCompleted
+                                  ? 'text-[#2E7D32]'
+                                  : 'text-slate-400'
+                              }`}
+                            >
+                              {s.label}
+                            </span>
+                          </div>
+                        </button>
+                        {idx < arr.length - 1 && (
+                          <div
+                            className={`flex-1 h-[2px] transition-colors rounded-full ${
+                              currentStep > idx + 1 ? 'bg-[#2E7D32]' : 'bg-slate-200'
+                            }`}
+                          />
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* ── CARD 1: HOW WOULD YOU LIKE TO TRAVEL? (STEP 1) ── */}
+              {currentStep === 1 && (
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                      1
+                    </span>
+                    <div>
+                      <h2 className="font-sans text-lg font-bold text-[#142332]">
+                        How would you like to travel? <span className="text-[#D46238]">*</span>
+                      </h2>
+                      <p className="text-xs text-[#566370]">
+                        Select your party setup. Private guide and dedicated porter support tailored for your group.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 4 Cards matching Inspiration Image 1 */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                    {travelStyles.map((style) => {
+                      const isSelected = travelStyle === style.id;
+                      const IconComp = style.icon;
+                      return (
+                        <button
+                          key={style.id}
+                          type="button"
+                          onClick={() => setTravelStyle(style.id)}
+                          className={`p-4 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2.5 ${
+                            isSelected
+                              ? 'bg-[#FAF8F5] border-[#D46238] shadow-xs'
+                              : 'bg-white hover:bg-[#FAF8F5] border-[#E8E2D8]'
+                          }`}
+                        >
+                          <div
+                            className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+                              isSelected ? 'bg-[#D46238] text-white' : 'bg-orange-50 text-[#D46238]'
+                            }`}
+                          >
+                            <IconComp className="w-6 h-6" />
+                          </div>
+
+                          {/* Radio Dot indicator */}
+                          <div
+                            className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                              isSelected ? 'border-[#D46238] bg-[#D46238]' : 'border-slate-300 bg-white'
+                            }`}
+                          >
+                            {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </div>
+
+                          <span
+                            className={`text-xs font-semibold ${
+                              isSelected ? 'text-[#D46238]' : 'text-[#334155]'
+                            }`}
+                          >
+                            {style.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Traveler Count */}
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                    <div>
+                      <span className="text-xs font-bold text-[#142332] block">No. of Travelers</span>
+                      <span className="text-[11px] text-[#7A8895]">Total persons travelling in your party</span>
+                    </div>
+
+                    <div className="flex items-center border border-[#CBD5E1] rounded-lg overflow-hidden bg-white shadow-2xs">
+                      <button
+                        type="button"
+                        onClick={() => setTravelersCount((prev) => Math.max(1, prev - 1))}
+                        disabled={travelersCount <= 1}
+                        className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed text-base font-bold cursor-pointer"
+                      >
+                        −
+                      </button>
+                      <span className="w-12 text-center text-sm font-bold font-mono text-[#142332]">
+                        {travelersCount}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setTravelersCount((prev) => Math.min(25, prev + 1))}
+                        disabled={travelersCount >= 25}
+                        className="w-10 h-10 flex items-center justify-center text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed text-base font-bold cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Step 1 Navigation Bar */}
+                  <div className="pt-4 border-t border-slate-100 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(2);
+                        window.scrollTo({ top: 200, behavior: 'smooth' });
+                      }}
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                    >
+                      <span>Continue to Dates (Step 2)</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* ── CARD 2: WHEN DO YOU PLAN TO TRAVEL? (STEP 2) ── */}
+              {currentStep === 2 && (
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                      2
+                    </span>
+                    <div>
+                      <h2 className="font-sans text-lg font-bold text-[#142332]">
+                        When do you plan to travel? <span className="text-[#D46238]">*</span>
+                      </h2>
+                      <p className="text-xs text-[#566370]">
+                        Fixed dates or still deciding? Choose your current stage of planning.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 3 Date Options matching Inspiration Image 2 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                    {dateOptions.map((opt) => {
+                      const isSelected = dateType === opt.id;
+                      const IconComp = opt.icon;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setDateType(opt.id as any)}
+                          className={`p-4 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2.5 ${
+                            isSelected
+                              ? 'bg-[#FAF8F5] border-[#D46238] shadow-xs'
+                              : 'bg-white hover:bg-[#FAF8F5] border-[#E8E2D8]'
+                          }`}
+                        >
+                          <div
+                            className={`w-11 h-11 rounded-xl flex items-center justify-center transition-colors ${
+                              isSelected ? 'bg-[#D46238] text-white' : 'bg-orange-50 text-[#D46238]'
+                            }`}
+                          >
+                            <IconComp className="w-5 h-5" />
+                          </div>
+
+                          <div
+                            className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                              isSelected ? 'border-[#D46238] bg-[#D46238]' : 'border-slate-300 bg-white'
+                            }`}
+                          >
+                            {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </div>
+
+                          <span
+                            className={`text-xs font-semibold ${
+                              isSelected ? 'text-[#D46238]' : 'text-[#334155]'
+                            }`}
+                          >
+                            {opt.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Trip Starting & Ending Dates */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+                    <div>
+                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                        Trip Starting Date <span className="text-[#D46238]">*</span>
+                      </label>
+                      <div className="relative">
+                        <Calendar className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3" />
+                        <input
+                          type="date"
+                          required
+                          value={startDate}
+                          onChange={(e) => setStartDate(e.target.value)}
+                          className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
                         />
-                        {searchQuery && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setSearchQuery('');
-                              setCustomDestination('');
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                        Trip Ending Date <span className="text-[#7A8895] font-normal">(Approximate)</span>
+                      </label>
+                      <div className="relative">
+                        <Calendar className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3" />
+                        <input
+                          type="date"
+                          value={endDate}
+                          onChange={(e) => setEndDate(e.target.value)}
+                          className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 2 Navigation Bar */}
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(1);
+                        window.scrollTo({ top: 200, behavior: 'smooth' });
+                      }}
+                      className="px-5 py-3 rounded-xl border border-[#CBD5E1] text-[#142332] font-semibold text-xs hover:bg-[#FAF8F5] transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      <span>Back</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(3);
+                        window.scrollTo({ top: 200, behavior: 'smooth' });
+                      }}
+                      className="px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                    >
+                      <span>Continue to Destination (Step 3)</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* ── CARD 3: WHAT KIND OF TRIP ARE YOU LOOKING FOR? (STEP 3) ── */}
+              {currentStep === 3 && (
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-4 animate-in fade-in duration-300">
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                      3
+                    </span>
+                    <div>
+                      <h2 className="font-sans text-lg font-bold text-[#142332]">
+                        What kind of trip are you looking for? <span className="text-[#D46238]">*</span>
+                      </h2>
+                      <p className="text-xs text-[#566370]">
+                        Do you have a specific destination or route in mind, or do you want our guidance?
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Radio selection matching Inspiration Image 3 */}
+                  <div className="space-y-2 pt-1">
+                    <label className="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-[#142332]">
+                      <input
+                        type="radio"
+                        name="tripPlanType"
+                        checked={tripPlanType === 'preferred'}
+                        onChange={() => setTripPlanType('preferred')}
+                        className="w-4 h-4 text-[#D46238] focus:ring-[#D46238]"
+                      />
+                      <span>I have my preferred Travel Plan / Trek.</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-[#142332]">
+                      <input
+                        type="radio"
+                        name="tripPlanType"
+                        checked={tripPlanType === 'advice'}
+                        onChange={() => setTripPlanType('advice')}
+                        className="w-4 h-4 text-[#D46238] focus:ring-[#D46238]"
+                      />
+                      <span>No, I am Looking for your Travel Expert Advice.</span>
+                    </label>
+                  </div>
+
+                  {tripPlanType === 'preferred' && (
+                    <div className="space-y-3 pt-2">
+                      <div ref={searchContainerRef} className="relative">
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="block text-[11px] font-bold text-[#334155]">
+                            Where would you like to visit? <span className="text-[#D46238]">*</span>
+                          </label>
+                          <span className="text-[10.5px] text-[#7A8895]">Search trek or type custom destination</span>
+                        </div>
+
+                        <div className="relative">
+                          <Search className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3 pointer-events-none" />
+                          <input
+                            type="text"
+                            required={tripPlanType === 'preferred'}
+                            value={searchQuery}
+                            onFocus={() => setIsDropdownOpen(true)}
+                            onChange={(e) => {
+                              setSearchQuery(e.target.value);
+                              setCustomDestination(e.target.value);
                               setIsDropdownOpen(true);
                             }}
-                            className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer p-0.5"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
+                            placeholder="Type to search or suggest trek (e.g. Everest, Annapurna, Langtang, Mustang...)"
+                            className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-9 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          />
+                          {searchQuery && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSearchQuery('');
+                                setCustomDestination('');
+                                setIsDropdownOpen(true);
+                              }}
+                              className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer p-0.5"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Live Auto-Suggestions Dropdown */}
+                        {isDropdownOpen && (
+                          <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-xl border border-[#CBD5E1] shadow-xl z-30 max-h-64 overflow-y-auto divide-y divide-slate-100">
+                            {filteredJourneys.length > 0 ? (
+                              filteredJourneys.slice(0, 8).map((j) => (
+                                <button
+                                  key={j.slug}
+                                  type="button"
+                                  onClick={() => handleSelectJourney(j)}
+                                  className="w-full text-left px-3.5 py-2.5 hover:bg-[#FAF8F5] transition-colors flex items-center justify-between cursor-pointer group"
+                                >
+                                  <div className="min-w-0 flex-1 pr-2">
+                                    <span className="text-xs font-semibold text-[#142332] group-hover:text-[#D46238] block truncate">
+                                      {j.title}
+                                    </span>
+                                    <span className="text-[10.5px] text-[#7A8895] block">
+                                      {j.region || 'Nepal'} • {j.duration}
+                                    </span>
+                                  </div>
+                                  <span className="text-[10px] font-mono font-bold text-[#183E63] bg-[#183E63]/5 px-2 py-0.5 rounded-full shrink-0">
+                                    Select
+                                  </span>
+                                </button>
+                              ))
+                            ) : (
+                              <div className="p-3 text-xs text-[#566370] text-center">
+                                <span>No matching trek package found.</span>
+                                <button
+                                  type="button"
+                                  onClick={() => setIsDropdownOpen(false)}
+                                  className="block mx-auto mt-1 font-bold text-[#D46238] hover:underline cursor-pointer"
+                                >
+                                  Use "{searchQuery}" as custom destination
+                                </button>
+                              </div>
+                            )}
+
+                            {searchQuery.trim() && (
+                              <div className="p-2 bg-[#FAF8F5] border-t border-slate-100 text-center">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCustomDestination(searchQuery);
+                                    setIsDropdownOpen(false);
+                                  }}
+                                  className="text-[11px] font-semibold text-[#D46238] hover:underline cursor-pointer"
+                                >
+                                  ✨ Use "{searchQuery}" as my custom destination
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         )}
-                      </div>
 
-                      {/* Live Auto-Suggestions Dropdown */}
-                      {isDropdownOpen && (
-                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-xl border border-[#CBD5E1] shadow-xl z-30 max-h-64 overflow-y-auto divide-y divide-slate-100">
-                          {filteredJourneys.length > 0 ? (
-                            filteredJourneys.slice(0, 8).map((j) => (
-                              <button
-                                key={j.slug}
-                                type="button"
-                                onClick={() => handleSelectJourney(j)}
-                                className="w-full text-left px-3.5 py-2.5 hover:bg-[#FAF8F5] transition-colors flex items-center justify-between cursor-pointer group"
-                              >
-                                <div className="min-w-0 flex-1 pr-2">
-                                  <span className="text-xs font-semibold text-[#142332] group-hover:text-[#D46238] block truncate">
-                                    {j.title}
-                                  </span>
-                                  <span className="text-[10.5px] text-[#7A8895] block">
-                                    {j.region || 'Nepal'} • {j.duration}
-                                  </span>
-                                </div>
-                                <span className="text-[10px] font-mono font-bold text-[#183E63] bg-[#183E63]/5 px-2 py-0.5 rounded-full shrink-0">
-                                  Select
-                                </span>
-                              </button>
-                            ))
-                          ) : (
-                            <div className="p-3 text-xs text-[#566370] text-center">
-                              <span>No matching trek package found.</span>
-                              <button
-                                type="button"
-                                onClick={() => setIsDropdownOpen(false)}
-                                className="block mx-auto mt-1 font-bold text-[#D46238] hover:underline cursor-pointer"
-                              >
-                                Use "{searchQuery}" as custom destination
-                              </button>
-                            </div>
-                          )}
-
-                          {searchQuery.trim() && (
-                            <div className="p-2 bg-[#FAF8F5] border-t border-slate-100 text-center">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setCustomDestination(searchQuery);
-                                  setIsDropdownOpen(false);
-                                }}
-                                className="text-[11px] font-semibold text-[#D46238] hover:underline cursor-pointer"
-                              >
-                                ✨ Use "{searchQuery}" as my custom destination
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Quick Popular Suggestion Chips */}
-                      <div className="pt-2">
-                        <span className="text-[10.5px] text-[#7A8895] block mb-1.5">
-                          Suggested routes:
-                        </span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {popularSuggestions.map((s) => {
-                            const isCurrent =
-                              searchQuery.toLowerCase() === s.title.toLowerCase();
-                            return (
-                              <button
-                                key={s.title}
-                                type="button"
-                                onClick={() => {
-                                  const matched = allJourneys.find((j) =>
-                                    j.title.toLowerCase().includes(s.title.toLowerCase())
-                                  );
-                                  if (matched) {
-                                    handleSelectJourney(matched);
-                                  } else {
-                                    setSearchQuery(s.title);
-                                    setCustomDestination(s.title);
-                                  }
-                                }}
-                                className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1 ${
-                                  isCurrent
-                                    ? 'bg-[#142332] text-white border-[#142332] font-semibold shadow-2xs'
-                                    : 'bg-white hover:bg-[#FAF8F5] text-[#334155] border-[#E8E2D8]'
-                                }`}
-                              >
-                                <span>{s.icon}</span>
-                                <span>{s.title}</span>
-                              </button>
-                            );
-                          })}
+                        {/* Quick Popular Suggestion Chips */}
+                        <div className="pt-2">
+                          <span className="text-[10.5px] text-[#7A8895] block mb-1.5">
+                            Suggested routes:
+                          </span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {popularSuggestions.map((s) => {
+                              const isCurrent =
+                                searchQuery.toLowerCase() === s.title.toLowerCase();
+                              return (
+                                <button
+                                  key={s.title}
+                                  type="button"
+                                  onClick={() => {
+                                    const matched = allJourneys.find((j) =>
+                                      j.title.toLowerCase().includes(s.title.toLowerCase())
+                                    );
+                                    if (matched) {
+                                      handleSelectJourney(matched);
+                                    } else {
+                                      setSearchQuery(s.title);
+                                      setCustomDestination(s.title);
+                                    }
+                                  }}
+                                  className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1 ${
+                                    isCurrent
+                                      ? 'bg-[#142332] text-white border-[#142332] font-semibold shadow-2xs'
+                                      : 'bg-white hover:bg-[#FAF8F5] text-[#334155] border-[#E8E2D8]'
+                                  }`}
+                                >
+                                  <span>{s.icon}</span>
+                                  <span>{s.title}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Preference description */}
-                <div className="pt-2">
-                  <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                    Describe about your preference and style of travelling <span className="text-[#7A8895] font-normal">(Optional)</span>
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={travelPreferences}
-                    onChange={(e) => setTravelPreferences(e.target.value)}
-                    placeholder="e.g. We love photography, prefer comfortable teahouses with attached bathrooms, need gradual acclimatisation, or have dietary preferences..."
-                    className="w-full border border-[#CBD5E1] rounded-xl p-3 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                  />
-                </div>
-              </div>
-
-              {/* ── CARD 4: LEAD TRAVELER DETAILS ── */}
-              <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5">
-                <div className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                    4
-                  </span>
-                  <div>
-                    <h2 className="font-sans text-lg font-bold text-[#142332]">
-                      Lead Traveler Details
-                    </h2>
-                    <p className="text-xs text-[#566370]">
-                      Where should our licensed Kathmandu team send your custom proposal?
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-4 text-xs font-sans">
-                  {/* Full Name & Email Address */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Full Name <span className="text-[#D46238]">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={leadDetails.fullName}
-                        onChange={(e) => setLeadDetails({ ...leadDetails, fullName: e.target.value })}
-                        placeholder="e.g. Eleanor Vance"
-                        className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Email Address <span className="text-[#D46238]">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={leadDetails.email}
-                        onChange={(e) => setLeadDetails({ ...leadDetails, email: e.target.value })}
-                        placeholder="e.g. eleanor@example.com"
-                        className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Select Country & Phone / WhatsApp */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Select Your Country <span className="text-[#D46238]">*</span>
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={leadDetails.country}
-                          onChange={(e) => setLeadDetails({ ...leadDetails, country: e.target.value })}
-                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                        >
-                          {countries.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Phone / WhatsApp Number <span className="text-[#D46238]">*</span>
-                      </label>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                        <select
-                          value={leadDetails.countryCode}
-                          onChange={(e) => setLeadDetails({ ...leadDetails, countryCode: e.target.value })}
-                          className="border border-[#CBD5E1] rounded-xl px-2.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63]"
-                        >
-                          {countryCodes.map((cc) => (
-                            <option key={cc.code} value={cc.code}>
-                              {cc.code} ({cc.country})
-                            </option>
-                          ))}
-                        </select>
-                        <input
-                          type="tel"
-                          required
-                          value={leadDetails.phoneNumber}
-                          onChange={(e) => setLeadDetails({ ...leadDetails, phoneNumber: e.target.value })}
-                          placeholder="e.g. 555-0199"
-                          className="col-span-2 sm:col-span-3 border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Anti-spam / Trust Reassurance matching inspiration Image 4 */}
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs text-[#566370]">
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                      <span>Zero spam. Direct inquiry to our Kathmandu licensed route planners.</span>
-                    </div>
-                    <span className="text-[10.5px] font-mono text-slate-400 font-bold uppercase">
-                      SSL SECURE
-                    </span>
-                  </div>
-
-                  {/* Submit CTA Button */}
+                  {/* Preference description */}
                   <div className="pt-2">
+                    <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                      Describe about your preference and style of travelling <span className="text-[#7A8895] font-normal">(Optional)</span>
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={travelPreferences}
+                      onChange={(e) => setTravelPreferences(e.target.value)}
+                      placeholder="e.g. We love photography, prefer comfortable teahouses with attached bathrooms, need gradual acclimatisation, or have dietary preferences..."
+                      className="w-full border border-[#CBD5E1] rounded-xl p-3 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                    />
+                  </div>
+
+                  {/* Step 3 Navigation Bar */}
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
                     <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-4 px-6 rounded-xl bg-[#D46238] hover:bg-[#B8522E] disabled:opacity-50 text-white font-bold text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(2);
+                        window.scrollTo({ top: 200, behavior: 'smooth' });
+                      }}
+                      className="px-5 py-3 rounded-xl border border-[#CBD5E1] text-[#142332] font-semibold text-xs hover:bg-[#FAF8F5] transition-all flex items-center gap-1.5 cursor-pointer"
                     >
-                      {isSubmitting ? (
-                        <span>Submitting Your Inquiry...</span>
-                      ) : (
-                        <>
-                          <span>Submit Trip Inquiry</span>
-                          <Send className="w-4 h-4" />
-                        </>
-                      )}
+                      <ArrowLeft className="w-4 h-4" />
+                      <span>Back</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(4);
+                        window.scrollTo({ top: 200, behavior: 'smooth' });
+                      }}
+                      className="px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                    >
+                      <span>Continue to Your Details (Step 4)</span>
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
-              </div>
+              )}
+
+              {/* ── CARD 4: LEAD TRAVELER DETAILS (STEP 4) ── */}
+              {currentStep === 4 && (
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
+                  <div className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                      4
+                    </span>
+                    <div>
+                      <h2 className="font-sans text-lg font-bold text-[#142332]">
+                        Lead Traveler Details
+                      </h2>
+                      <p className="text-xs text-[#566370]">
+                        Where should our licensed Kathmandu team send your custom proposal?
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 text-xs font-sans">
+                    {/* Full Name & Email Address */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                          Full Name <span className="text-[#D46238]">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={leadDetails.fullName}
+                          onChange={(e) => setLeadDetails({ ...leadDetails, fullName: e.target.value })}
+                          placeholder="e.g. Eleanor Vance"
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                          Email Address <span className="text-[#D46238]">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={leadDetails.email}
+                          onChange={(e) => setLeadDetails({ ...leadDetails, email: e.target.value })}
+                          placeholder="e.g. eleanor@example.com"
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Select Country & Phone / WhatsApp */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                          Select Your Country <span className="text-[#D46238]">*</span>
+                        </label>
+                        <div className="relative">
+                          <select
+                            value={leadDetails.country}
+                            onChange={(e) => setLeadDetails({ ...leadDetails, country: e.target.value })}
+                            className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          >
+                            {countries.map((c) => (
+                              <option key={c} value={c}>
+                                {c}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-[#334155] mb-1">
+                          Phone / WhatsApp Number <span className="text-[#D46238]">*</span>
+                        </label>
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                          <select
+                            value={leadDetails.countryCode}
+                            onChange={(e) => setLeadDetails({ ...leadDetails, countryCode: e.target.value })}
+                            className="border border-[#CBD5E1] rounded-xl px-2.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63]"
+                          >
+                            {countryCodes.map((cc) => (
+                              <option key={cc.code} value={cc.code}>
+                                {cc.code} ({cc.country})
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="tel"
+                            required
+                            value={leadDetails.phoneNumber}
+                            onChange={(e) => setLeadDetails({ ...leadDetails, phoneNumber: e.target.value })}
+                            placeholder="e.g. 555-0199"
+                            className="col-span-2 sm:col-span-3 border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Anti-spam / Trust Reassurance matching inspiration Image 4 */}
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs text-[#566370]">
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                        <span>Zero spam. Direct inquiry to our Kathmandu licensed route planners.</span>
+                      </div>
+                      <span className="text-[10.5px] font-mono text-slate-400 font-bold uppercase">
+                        SSL SECURE
+                      </span>
+                    </div>
+
+                    {/* Step 4 Navigation & Submit Bar */}
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCurrentStep(3);
+                          window.scrollTo({ top: 200, behavior: 'smooth' });
+                        }}
+                        className="px-5 py-3.5 rounded-xl border border-[#CBD5E1] text-[#142332] font-semibold text-xs hover:bg-[#FAF8F5] transition-all flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        <span>Back</span>
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="flex-1 py-4 px-6 rounded-xl bg-[#D46238] hover:bg-[#B8522E] disabled:opacity-50 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                      >
+                        {isSubmitting ? (
+                          <span>Submitting Your Inquiry...</span>
+                        ) : (
+                          <>
+                            <span>Submit Trip Inquiry</span>
+                            <Send className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* ═════════════════════════════════════════════════════════ */}
