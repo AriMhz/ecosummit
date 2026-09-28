@@ -44,7 +44,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
     <div className="w-full flex flex-col gap-0">
 
       {/* ── TOP: Slide counter + segmented progress bar ── */}
-      <div className="flex items-center gap-5 mb-8 sm:mb-10 select-none">
+      <div className="flex items-center justify-center gap-5 mb-6 sm:mb-8 select-none">
         <AnimatePresence mode="wait">
           <motion.span
             key={currentIndex}
@@ -104,20 +104,21 @@ export const HeroContent: React.FC<HeroContentProps> = ({
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="flex flex-col items-start"
+          className="flex flex-col items-center text-center max-w-4xl mx-auto"
         >
           {/* Region badge */}
-          <motion.div variants={itemVariants} className="flex items-center gap-2.5 mb-4 sm:mb-5">
+          <motion.div variants={itemVariants} className="flex items-center justify-center gap-2.5 mb-3 sm:mb-4">
             <span className="w-7 h-[1.5px] bg-[#FF5722] shrink-0" />
             <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF5722]">
               {slide.tag}
             </span>
+            <span className="w-7 h-[1.5px] bg-[#FF5722] shrink-0" />
           </motion.div>
 
           {/* Monumental headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-display text-[3.6rem] sm:text-[5.2rem] md:text-[6.8rem] lg:text-[8rem] xl:text-[9rem] font-black text-white tracking-[-0.025em] leading-[0.9] mb-5 sm:mb-7 drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]"
+            className="font-display text-[3.6rem] sm:text-[5.2rem] md:text-[6.8rem] lg:text-[8rem] xl:text-[9rem] font-black text-white tracking-[-0.025em] leading-[0.9] mb-4 sm:mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)] text-center"
           >
             {slide.title}
           </motion.h1>
@@ -125,13 +126,13 @@ export const HeroContent: React.FC<HeroContentProps> = ({
           {/* Subtle divider */}
           <motion.div
             variants={itemVariants}
-            className="w-10 h-[1.5px] bg-white/40 mb-5 sm:mb-6 shadow-sm"
+            className="w-12 h-[1.5px] bg-white/40 mb-4 sm:mb-5 shadow-sm mx-auto"
           />
 
           {/* Tagline */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-[13px] sm:text-[15px] text-white/90 font-normal tracking-wide leading-relaxed mb-7 sm:mb-8 max-w-[360px] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
+            className="font-sans text-[13px] sm:text-[16px] text-white/95 font-normal tracking-wide leading-relaxed mb-7 sm:mb-8 max-w-lg mx-auto text-center drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
           >
             {slide.tagline}
           </motion.p>
@@ -139,7 +140,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
           {/* Dual Action CTAs: High-conversion buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1"
+            className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-1"
           >
             {/* Primary: Explore Journeys */}
             <Link

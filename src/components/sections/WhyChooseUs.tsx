@@ -1,283 +1,185 @@
 import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ShieldCheck,
+  Compass,
+  HeartHandshake,
+  Award,
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const WhyChooseUs: React.FC = () => {
-  const cards = [
+  const shouldReduceMotion = useReducedMotion();
+
+  const pillars = [
     {
-      id: 'local-expertise',
-      title: 'Local Expertise & Authentic Experiences',
+      id: 'sherpa-leadership',
+      badge: '100% Local',
+      title: 'Native Sherpa Leadership',
+      highlight: 'Born & raised on Himalayan trails',
       description:
-        'Explore Nepal with experienced local guides who know the mountains, culture, and hidden trails deeply. Our team ensures genuine experiences while supporting local communities and sustainable tourism.',
-      icon: (
-        <svg
-          className="w-16 h-16 text-[#1A62B6]"
-          viewBox="0 0 72 72"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Subtle soft tint backing for depth */}
-          <circle cx="36" cy="36" r="30" fill="#EDF5FD" />
-
-          {/* Guide Head & Hair */}
-          <circle cx="33" cy="22" r="9.5" stroke="#1A62B6" strokeWidth="2.5" fill="#FFFFFF" />
-          <path
-            d="M26 17.5 C 29 13.5, 37 13.5, 40 17.5"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-          {/* Smile */}
-          <path
-            d="M30 24.5 Q 33 27 36 24.5"
-            stroke="#1A62B6"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-
-          {/* Shoulders */}
-          <path
-            d="M21 44 C 21 34.5, 25.5 32.5, 33 32.5 C 40.5 32.5, 45 34.5, 45 44"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            fill="#FFFFFF"
-          />
-
-          {/* Laptop */}
-          <rect
-            x="24"
-            y="41"
-            width="18"
-            height="11"
-            rx="2"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-          />
-          <line x1="20" y1="52" x2="46" y2="52" stroke="#1A62B6" strokeWidth="2.5" strokeLinecap="round" />
-          <circle cx="33" cy="46.5" r="1.5" fill="#1A62B6" />
-
-          {/* Location Pin */}
-          <g transform="translate(13, 3)">
-            <path
-              d="M34 32 C34 27.5 37.5 24 42 24 C46.5 24 50 27.5 50 32 C50 38 42 45 42 45 C42 45 34 38 34 32 Z"
-              fill="#E85D2A"
-              stroke="#FFFFFF"
-              strokeWidth="2"
-            />
-            <circle cx="42" cy="32" r="2.5" fill="#FFFFFF" />
-          </g>
-        </svg>
-      ),
+        'Led by veteran mountain guides with decades of high-altitude experience. We provide fair living wages and comprehensive gear insurance for every porter.',
+      icon: <Award className="w-6 h-6 text-[#E85D2A]" />,
+      stats: '15+ Years Peak Experience',
     },
     {
-      id: 'customized-trips',
-      title: 'Customized Trips for Every Traveler',
+      id: 'tailored-pacing',
+      badge: '1:4 Guide Ratio',
+      title: 'Unhurried, Bespoke Pacing',
+      highlight: 'Your rhythm, never a herd tour',
       description:
-        'Whether you are planning a trekking adventure, cultural tour, peak climbing expedition, or family holiday, we design flexible itineraries based on your interests, schedule, fitness level, and budget.',
-      icon: (
-        <svg
-          className="w-16 h-16 text-[#1A62B6]"
-          viewBox="0 0 72 72"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Subtle soft tint backing */}
-          <circle cx="36" cy="36" r="30" fill="#EDF5FD" />
-
-          {/* Center pole */}
-          <line x1="36" y1="14" x2="36" y2="56" stroke="#1A62B6" strokeWidth="2.8" strokeLinecap="round" />
-          
-          {/* Top Sign pointing left */}
-          <path
-            d="M21 23 L36 23 L36 32 L21 32 L15 27.5 Z"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-          />
-          <line x1="20" y1="27.5" x2="31" y2="27.5" stroke="#E85D2A" strokeWidth="2" strokeLinecap="round" />
-
-          {/* Bottom Sign pointing right */}
-          <path
-            d="M36 34 L51 34 L57 38.5 L51 43 L36 43 Z"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-          />
-          <line x1="41" y1="38.5" x2="52" y2="38.5" stroke="#E85D2A" strokeWidth="2" strokeLinecap="round" />
-
-          {/* Cloud base */}
-          <path
-            d="M22 56 C22 51.5 26.5 49 31 51 C33 47.5 40 47.5 42 51 C46.5 49 51 51.5 51 56 Z"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
+        'Conservative ascent profiles tailored to your personal fitness. Extra acclimatisation days built in so you soak in every sunrise without altitude sickness.',
+      icon: <Compass className="w-6 h-6 text-[#E5A93C]" />,
+      stats: 'Flexible Private Departures',
     },
     {
-      id: 'luxury-premium',
-      title: 'Luxury & Premium Experiences',
+      id: 'medical-safety',
+      badge: '24/7 Heli Standby',
+      title: 'Rigorous Alpine Safety',
+      highlight: 'Continuous health monitoring',
       description:
-        'Enjoy carefully designed journeys with premium accommodations, private transportation, personalized services, and attention to every detail for a comfortable and elevated travel experience.',
-      icon: (
-        <svg
-          className="w-16 h-16 text-[#1A62B6]"
-          viewBox="0 0 72 72"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Subtle soft tint backing */}
-          <circle cx="36" cy="36" r="30" fill="#EDF5FD" />
-
-          {/* Top Star */}
-          <path
-            d="M36 12 L38.8 19 L46 19.5 L40.5 24.5 L42.2 31.5 L36 27.8 L29.8 31.5 L31.5 24.5 L26 19.5 L33.2 19 Z"
-            fill="#FBBF24"
-            stroke="#D97706"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-          {/* Star Sparkle Rays */}
-          <line x1="36" y1="6" x2="36" y2="8.5" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
-          <line x1="47" y1="14" x2="49" y2="12" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
-          <line x1="25" y1="14" x2="23" y2="12" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
-
-          {/* 3 Tier Podium */}
-          {/* Top step */}
-          <rect
-            x="27"
-            y="35"
-            width="18"
-            height="7"
-            rx="2"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-          />
-          {/* Middle step */}
-          <rect
-            x="20"
-            y="42"
-            width="32"
-            height="7"
-            rx="2"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-          />
-          {/* Bottom step */}
-          <rect
-            x="14"
-            y="49"
-            width="44"
-            height="7"
-            rx="2"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-          />
-        </svg>
-      ),
+        'Twice-daily pulse oximeter tracking, comprehensive medical kits, satellite communications, and instant emergency helicopter dispatch on standby.',
+      icon: <ShieldCheck className="w-6 h-6 text-[#38A169]" />,
+      stats: '99.4% Safety Record',
     },
     {
-      id: '24-7-support',
-      title: '24/7 Dedicated Travel Assistance',
+      id: 'direct-value',
+      badge: 'Zero Middleman',
+      title: 'Direct Local Value',
+      highlight: '100% stays in Nepal',
       description:
-        'Travel with confidence knowing our support team is available before, during, and after your trip. We are always ready to assist with guidance, updates, and any travel needs throughout your adventure.',
-      icon: (
-        <svg
-          className="w-16 h-16 text-[#1A62B6]"
-          viewBox="0 0 72 72"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Subtle soft tint backing */}
-          <circle cx="36" cy="36" r="30" fill="#EDF5FD" />
-
-          {/* Classic Telephone Handset */}
-          <path
-            d="M20 20 C20 37 34 51 51 51 L53.5 44.5 C54 42.8 52.5 41 50.8 40.5 L43.5 37 C41.8 36.2 39.8 37.2 39 38.5 L36.5 41.5 C30.5 38 26.5 33.5 23.5 27.5 L26.5 25 C27.8 23.8 28.5 21.8 28 20.2 L24.5 12.8 C24 11 22.2 9.5 20.5 10 Z"
-            fill="#FFFFFF"
-            stroke="#1A62B6"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-
-          {/* 24/7 Badge */}
-          <g transform="translate(38, 16)">
-            <rect x="0" y="0" width="22" height="13" rx="4" fill="#E85D2A" />
-            <text
-              x="11"
-              y="9.5"
-              fill="#FFFFFF"
-              fontSize="9"
-              fontWeight="bold"
-              fontFamily="sans-serif"
-              textAnchor="middle"
-              letterSpacing="0.4"
-            >
-              24/7
-            </text>
-          </g>
-        </svg>
-      ),
+        'Directly operated from Kathmandu with transparent pricing. No foreign agency commissions — your investment directly empowers local mountain communities.',
+      icon: <HeartHandshake className="w-6 h-6 text-[#4299E1]" />,
+      stats: 'Direct Kathmandu Operator',
     },
   ];
 
   return (
-    <section className="relative w-full py-20 sm:py-24 lg:py-28 bg-gradient-to-r from-[#123356] via-[#1A4574] to-[#245B96] text-white overflow-hidden">
-      {/* ── Soft Atmospheric Background Elements ─────────────── */}
+    <section className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#0C1724] text-white overflow-hidden">
+      {/* ── Topographic Contour Lines & Ambient Glow ──────────── */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-white/[0.04] rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-[#E85D2A]/10 rounded-full blur-[120px]" />
+        {/* Soft amber/orange summit glow */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-[350px] bg-[#E85D2A]/10 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 left-1/4 w-[600px] h-[400px] bg-[#1A4574]/30 rounded-full blur-[150px]" />
+
+        {/* Contour lines vector */}
+        <svg
+          className="absolute -top-10 -right-10 w-[600px] h-[600px] text-white/[0.03] pointer-events-none"
+          viewBox="0 0 500 500"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+        >
+          <path d="M 50,150 C 120,80 250,90 350,160 C 450,230 480,360 410,440 C 340,520 180,480 100,410 C 20,340 -20,220 50,150 Z" />
+          <path d="M 90,170 C 150,110 260,120 340,180 C 420,240 440,340 380,410 C 320,480 190,440 120,380 C 50,320 30,230 90,170 Z" />
+          <path d="M 130,190 C 180,140 270,150 330,200 C 390,250 400,320 350,380 C 300,440 200,400 140,350 C 80,300 80,240 130,190 Z" />
+        </svg>
       </div>
 
       <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        {/* ── Top Header Row ──────────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 lg:gap-16 mb-14 sm:mb-16">
-          {/* Left Title */}
-          <div className="lg:max-w-md">
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white tracking-tight leading-[1.18] font-sans">
-              Why EcoSummit
-            </h2>
-          </div>
+        {/* ── Section Header ──────────────────────────────────── */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-14 mb-14 sm:mb-16">
+          <div className="max-w-2xl space-y-3.5">
+            {/* Eyebrow */}
+            <div className="flex items-center gap-2.5">
+              <span className="w-8 h-[2px] bg-[#E85D2A] rounded-full" />
+              <span className="font-simplon-mono text-xs uppercase tracking-[0.24em] text-[#E85D2A] font-bold">
+                THE ECOSUMMIT STANDARD
+              </span>
+            </div>
 
-          {/* Right Introductory Narrative */}
-          <div className="lg:max-w-xl">
-            <p className="text-white/90 text-sm sm:text-base leading-relaxed font-normal">
-              At EcoSummit Expeditions, we believe every journey should be meaningful, safe, and unforgettable. With experienced local guides, personalized itineraries, and dedicated support, we create authentic Himalayan adventures tailored to your travel goals.
+            {/* Headline */}
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] text-white font-normal leading-[1.14] tracking-tight">
+              Why EcoSummit
+              <br />
+              <span className="text-white/60 font-light italic text-2xl sm:text-3xl lg:text-[38px]">
+                Built by Sherpas. Perfected for You.
+              </span>
+            </h2>
+
+            {/* Short, Punchy Narrative */}
+            <p className="font-sans text-sm sm:text-base text-white/75 leading-relaxed font-light max-w-xl pt-1">
+              No middleman markups. No rushed tourist herds. Just authentic Himalayan expeditions guided by those who call these mountains home.
             </p>
           </div>
+
+          {/* Right Action Link */}
+          <Link
+            to="/about"
+            className="inline-flex items-center gap-2 text-xs font-simplon-mono font-bold tracking-[0.16em] uppercase text-[#E85D2A] hover:text-white transition-colors group shrink-0 pb-1"
+          >
+            <span>Our Mountain Ethos</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
 
-        {/* ── 4 Clean White Cards Grid ────────────────────────── */}
+        {/* ── 4 Enhanced Modern Cards Grid ────────────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
-          {cards.map((card) => (
-            <div
-              key={card.id}
-              className="bg-white rounded-2xl p-7 sm:p-8 flex flex-col justify-start shadow-[0_10px_35px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.2)] hover:-translate-y-1.5 transition-all duration-300 group"
+          {pillars.map((pillar, idx) => (
+            <motion.div
+              key={pillar.id}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/10 hover:border-[#E85D2A]/50 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.25)] relative overflow-hidden"
             >
-              {/* Large, Prominent Icon Logo */}
-              <div className="mb-7 flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
-                {card.icon}
+              {/* Subtle accent corner glow on hover */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#E85D2A]/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+              <div>
+                {/* Top Row: Icon + Badge */}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
+                    {pillar.icon}
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-white/[0.08] border border-white/15 text-[10.5px] font-simplon-mono text-[#E5A93C] font-semibold tracking-wide">
+                    {pillar.badge}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-serif text-xl sm:text-[22px] font-bold text-white group-hover:text-[#E85D2A] transition-colors leading-snug mb-1">
+                  {pillar.title}
+                </h3>
+
+                {/* Highlight Tagline */}
+                <p className="text-[12px] text-[#E5A93C] font-medium tracking-wide mb-3">
+                  {pillar.highlight}
+                </p>
+
+                {/* Description */}
+                <p className="text-xs sm:text-[13px] text-white/70 leading-relaxed font-light">
+                  {pillar.description}
+                </p>
               </div>
 
-              {/* Card Title */}
-              <h3 className="text-lg sm:text-[19px] font-bold text-[#143D6B] leading-snug mb-3">
-                {card.title}
-              </h3>
-
-              {/* Card Description */}
-              <p className="text-sm text-[#4A5568] leading-relaxed font-normal">
-                {card.description}
-              </p>
-            </div>
+              {/* Bottom Stat Footer */}
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-[11px] text-white/80 font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#38A169] shrink-0" />
+                <span className="truncate">{pillar.stats}</span>
+              </div>
+            </motion.div>
           ))}
+        </div>
+
+        {/* ── Bottom Trust / Proof Strip ──────────────────────── */}
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-6 text-xs text-white/60 select-none">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#E5A93C]" />
+            <span className="font-medium text-white/90">Direct Operator in Thamel, Kathmandu</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#38A169]" />
+            <span>100% Certified Guides (TAAN / NMA Licensed)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E85D2A]" />
+            <span>Ethical Porter Welfare Protocol Compliant</span>
+          </div>
         </div>
       </div>
     </section>

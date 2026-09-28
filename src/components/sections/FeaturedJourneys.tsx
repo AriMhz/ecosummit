@@ -208,11 +208,11 @@ export const FeaturedJourneys: React.FC = () => {
           src={ourTeamBg}
           alt=""
           role="presentation"
-          className="w-full h-full object-cover object-[82%_20%] md:object-[80%_15%] opacity-90"
+          className="w-full h-full object-cover object-[82%_20%] md:object-[80%_15%] opacity-90 blur-sm sm:blur-none transition-all duration-300"
         />
         {/* Soft atmospheric gradient blend for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#EDF3F7] via-[#EDF3F7]/75 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#EDF3F7]/50 via-transparent to-[#FAF8F5]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#EDF3F7] via-[#EDF3F7]/80 to-transparent backdrop-blur-[2px] sm:backdrop-blur-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#EDF3F7]/60 via-transparent to-[#FAF8F5]" />
       </div>
 
       {/* ── Topographic contour lines decoration (bottom-left) ── */}

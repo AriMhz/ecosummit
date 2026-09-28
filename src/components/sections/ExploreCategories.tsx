@@ -5,52 +5,9 @@ import {
   ArrowRight,
   Wind,
   Sparkles,
-  Users,
-  SunMedium,
-  Camera,
 } from 'lucide-react';
 import trekkingHeroImg from '../../assets/1ba4ee33-e39c-438d-ac84-68df4f8e0017.png';
 import chitwanImg from '../../assets/chitwan.png';
-
-interface SpecializedCategory {
-  title: string;
-  image: string;
-  link: string;
-  icon: React.ReactNode;
-}
-
-const specializedCategories: SpecializedCategory[] = [
-  {
-    title: 'Adventure Sports',
-    image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=700&q=80',
-    link: '/treks',
-    icon: <Wind className="w-3.5 h-3.5" />,
-  },
-  {
-    title: 'Luxury Escapes',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=700&q=80',
-    link: '/tours/nepal-panoramic-luxury-journey',
-    icon: <Sparkles className="w-3.5 h-3.5 text-[#E5A93C]" />,
-  },
-  {
-    title: 'Family & Group Tours',
-    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=700&q=80',
-    link: '/tours',
-    icon: <Users className="w-3.5 h-3.5" />,
-  },
-  {
-    title: 'Wellness & Relaxation',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=700&q=80',
-    link: '/tours',
-    icon: <SunMedium className="w-3.5 h-3.5 text-[#E5A93C]" />,
-  },
-  {
-    title: 'Photography Journeys',
-    image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=700&q=80',
-    link: '/treks',
-    icon: <Camera className="w-3.5 h-3.5" />,
-  },
-];
 
 export const ExploreCategories: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -169,15 +126,15 @@ export const ExploreCategories: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Stack of 2 Medium Landscape Cards */}
-          <div className="lg:col-span-5 flex flex-col gap-5 sm:gap-6">
+          {/* Right Column: 4 Balanced Cards in a 2x2 Grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
             {/* Card 2: Culture & Heritage */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="rounded-[24px] overflow-hidden relative group min-h-[220px] sm:min-h-[235px] flex-1 flex flex-col justify-end p-6 sm:p-7 shadow-md hover:shadow-2xl transition-all duration-500"
+              className="rounded-[24px] overflow-hidden relative group min-h-[240px] sm:min-h-[255px] flex flex-col justify-end p-6 shadow-md hover:shadow-2xl transition-all duration-500"
             >
               <Link to="/tours" className="absolute inset-0 z-20" aria-label="Culture & Heritage" />
 
@@ -210,7 +167,7 @@ export const ExploreCategories: React.FC = () => {
                   Culture &amp; Heritage
                 </h4>
                 <p className="text-xs text-white/85 mt-0.5 font-light">
-                  Immerse in ancient traditions
+                  Ancient traditions &amp; UNESCO sites
                 </p>
                 <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/15">
                   <span className="text-[10px] font-simplon-mono text-white/80">
@@ -229,8 +186,8 @@ export const ExploreCategories: React.FC = () => {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-[24px] overflow-hidden relative group min-h-[220px] sm:min-h-[235px] flex-1 flex flex-col justify-end p-6 sm:p-7 shadow-md hover:shadow-2xl transition-all duration-500"
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="rounded-[24px] overflow-hidden relative group min-h-[240px] sm:min-h-[255px] flex flex-col justify-end p-6 shadow-md hover:shadow-2xl transition-all duration-500"
             >
               <Link
                 to="/tours/nepal-wildlife-heritage-odyssey"
@@ -268,7 +225,7 @@ export const ExploreCategories: React.FC = () => {
                   Nature &amp; Wildlife
                 </h4>
                 <p className="text-xs text-white/85 mt-0.5 font-light">
-                  Encounter diverse ecosystems
+                  Chitwan safaris &amp; royal tigers
                 </p>
                 <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/15">
                   <span className="text-[10px] font-simplon-mono text-white/80">
@@ -281,49 +238,105 @@ export const ExploreCategories: React.FC = () => {
                 </div>
               </div>
             </motion.div>
-          </div>
-        </div>
 
-        {/* ── Specialized Styles (5 Bottom Compact Cards) ────────── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
-          {specializedCategories.map((item, idx) => (
+            {/* Card 4: Luxury & Scenic Escapes */}
             <motion.div
-              key={item.title}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 15 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="rounded-[24px] overflow-hidden relative group min-h-[240px] sm:min-h-[255px] flex flex-col justify-end p-6 shadow-md hover:shadow-2xl transition-all duration-500"
             >
-              <Link to={item.link} className="group flex flex-col cursor-pointer">
-                {/* Image Box */}
-                <div className="aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden relative bg-[#102942] mb-3 shadow-xs group-hover:shadow-md transition-shadow">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+              <Link
+                to="/tours/nepal-panoramic-luxury-journey"
+                className="absolute inset-0 z-20"
+                aria-label="Luxury & Scenic Escapes"
+              />
 
-                  {/* Floating Icon in top-left */}
-                  <div className="absolute top-2.5 left-2.5 w-7 h-7 rounded-lg bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                    {item.icon}
-                  </div>
+              <div className="absolute inset-0 z-0 bg-[#102942] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=80"
+                  alt="Luxury & Scenic Escapes in Nepal"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
+              </div>
+
+              {/* Top Sparkle Icon */}
+              <div className="absolute top-5 left-5 z-10">
+                <div className="w-8 h-8 rounded-lg bg-black/35 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#E5A93C]">
+                  <Sparkles className="w-4 h-4 text-[#E5A93C]" />
                 </div>
+              </div>
 
-                {/* Text Info */}
-                <div>
-                  <h5 className="font-sans font-bold text-sm sm:text-[15px] text-[#102942] group-hover:text-[#E85D2A] transition-colors leading-snug">
-                    {item.title}
-                  </h5>
-                  <span className="text-[11px] font-medium text-[#59615D] group-hover:text-[#E85D2A] transition-colors inline-flex items-center gap-1 mt-0.5">
+              <div className="relative z-10">
+                <h4 className="font-serif font-bold text-xl sm:text-2xl text-white group-hover:text-[#E85D2A] transition-colors">
+                  Luxury &amp; Escapes
+                </h4>
+                <p className="text-xs text-white/85 mt-0.5 font-light">
+                  Helicopter tours &amp; boutique retreats
+                </p>
+                <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/15">
+                  <span className="text-[10px] font-simplon-mono text-white/80">
+                    Bespoke Luxury
+                  </span>
+                  <span className="text-xs font-bold text-[#E85D2A] group-hover:text-white transition-colors inline-flex items-center gap-1">
                     <span>Explore</span>
                     <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                   </span>
                 </div>
-              </Link>
+              </div>
             </motion.div>
-          ))}
+
+            {/* Card 5: Peak Climbing & Summits */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="rounded-[24px] overflow-hidden relative group min-h-[240px] sm:min-h-[255px] flex flex-col justify-end p-6 shadow-md hover:shadow-2xl transition-all duration-500"
+            >
+              <Link
+                to="/expeditions"
+                className="absolute inset-0 z-20"
+                aria-label="Peak Climbing & Summits"
+              />
+
+              <div className="absolute inset-0 z-0 bg-[#102942] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=1000&q=80"
+                  alt="Peak Climbing in Nepal"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
+              </div>
+
+              {/* Top Wind / Summit Icon */}
+              <div className="absolute top-5 left-5 z-10">
+                <div className="w-8 h-8 rounded-lg bg-black/35 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
+                  <Wind className="w-4 h-4 text-white" />
+                </div>
+              </div>
+
+              <div className="relative z-10">
+                <h4 className="font-serif font-bold text-xl sm:text-2xl text-white group-hover:text-[#E85D2A] transition-colors">
+                  Peak Climbing
+                </h4>
+                <p className="text-xs text-white/85 mt-0.5 font-light">
+                  Mera Peak, Island Peak &amp; 6,000m summits
+                </p>
+                <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/15">
+                  <span className="text-[10px] font-simplon-mono text-white/80">
+                    Alpine Summits
+                  </span>
+                  <span className="text-xs font-bold text-[#E85D2A] group-hover:text-white transition-colors inline-flex items-center gap-1">
+                    <span>Explore</span>
+                    <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
 
         {/* ── Bottom Micro CTA ───────────────────────────────────── */}

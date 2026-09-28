@@ -173,12 +173,11 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="relative mb-5"
         >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md flex items-center justify-center p-2.5 shadow-2xl relative group">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#E85D2A]/20 to-transparent opacity-50" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white p-2.5 shadow-2xl flex items-center justify-center relative group border border-white/20">
             <img
               src={logoImg}
               alt="EcoSummit Logo"
-              className="w-full h-full object-contain filter brightness-110 drop-shadow-md"
+              className="w-full h-full object-contain"
             />
           </div>
         </motion.div>
