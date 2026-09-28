@@ -10,7 +10,6 @@ import { WhyChooseUs } from '../components/sections/WhyChooseUs';
 import { LocalExperts } from '../components/sections/LocalExperts';
 import { PrivateJourneys } from '../components/sections/PrivateJourneys';
 import { HimalayanWelcome } from '../components/sections/HimalayanWelcome';
-import { CinematicStory } from '../components/sections/CinematicStory';
 import { TrailStories } from '../components/sections/TrailStories';
 import { Testimonials } from '../components/sections/Testimonials';
 import { TravelGuidePreview } from '../components/sections/TravelGuidePreview';
@@ -49,9 +48,6 @@ export const Home: React.FC = () => {
 
       {/* 10.5 Welcome to Nepal - Editorial Invitation & Brand Story */}
       <HimalayanWelcome />
-
-      {/* 11. Cinematic Story Section (The Himalayan Essence / Some Journeys Stay With You) */}
-      <CinematicStory />
 
       {/* 11.5 The EcoSummit Standard - Why EcoSummit */}
       <WhyChooseUs />
