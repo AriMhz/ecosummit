@@ -5,8 +5,9 @@ import { CompanyIntro } from '../components/sections/CompanyIntro';
 import { FeaturedJourneys } from '../components/sections/FeaturedJourneys';
 import { FeaturedTours } from '../components/sections/FeaturedTours';
 import { FeaturedExpeditions } from '../components/sections/FeaturedExpeditions';
-import { WhyChooseUs } from '../components/sections/WhyChooseUs';
 import { DestinationExperience } from '../components/sections/DestinationExperience';
+import { VoluntaryWork } from '../components/sections/VoluntaryWork';
+import { WhyChooseUs } from '../components/sections/WhyChooseUs';
 import { LocalExperts } from '../components/sections/LocalExperts';
 import { PrivateJourneys } from '../components/sections/PrivateJourneys';
 import { HimalayanWelcome } from '../components/sections/HimalayanWelcome';
@@ -40,6 +41,9 @@ export const Home: React.FC = () => {
 
       {/* 7. Featured Destinations */}
       <DestinationExperience />
+
+      {/* 8. Volunteer & Community Work */}
+      <VoluntaryWork />
 
       {/* 9. Meet Your Local Himalayan Experts */}
       <LocalExperts />

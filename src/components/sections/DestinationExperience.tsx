@@ -121,9 +121,9 @@ const destinationCards: DestinationCardItem[] = [
 
 const destinationFeatures = [
   {
-    id: 'views',
-    title: 'Mountain Views',
-    subtitle: 'Breathtaking landscapes',
+    id: 'schools',
+    title: 'Village Schools',
+    subtitle: 'Classroom & book support',
     borderClass: 'border-2 border-[#E85D2A]',
     iconColor: 'text-[#E85D2A]',
     icon: (
@@ -136,15 +136,16 @@ const destinationFeatures = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M3 18L8.5 9.5L12.5 15L16.5 8.5L21.5 18H3Z" />
-        <path d="M8.5 9.5L11.5 15L14 11.5L16.5 15" />
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        <path d="M10 6h6M10 10h6" />
       </svg>
     ),
   },
   {
-    id: 'culture',
-    title: 'Rich Culture',
-    subtitle: 'Ancient traditions',
+    id: 'cleanups',
+    title: 'Trail Cleanups',
+    subtitle: 'Himalayan waste sweeps',
     borderClass: 'border border-[#718096]/60',
     iconColor: 'text-[#4A5568]',
     icon: (
@@ -157,16 +158,16 @@ const destinationFeatures = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <line x1="12" y1="8" x2="12" y2="14" />
-        <line x1="9" y1="11" x2="15" y2="11" />
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+        <line x1="10" y1="11" x2="10" y2="17" />
+        <line x1="14" y1="11" x2="14" y2="17" />
       </svg>
     ),
   },
   {
-    id: 'wildlife',
-    title: 'Unique Wildlife',
-    subtitle: 'Rare and diverse species',
+    id: 'reforestation',
+    title: 'Tree Planting',
+    subtitle: 'Mountain slope restoration',
     borderClass: 'border border-[#718096]/60',
     iconColor: 'text-[#4A5568]',
     icon: (
@@ -179,17 +180,15 @@ const destinationFeatures = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M12 2v20" />
-        <path d="M12 4c4.5 1.5 6.5 5.5 6.5 10a6.5 6.5 0 0 1-13 0c0-4.5 2-8.5 6.5-10z" />
-        <path d="M12 10l4.5-2" />
-        <path d="M12 14l-4.5-2" />
+        <path d="M12 2L4 14h5v6h6v-6h5L12 2z" />
+        <path d="M12 20v2" />
       </svg>
     ),
   },
   {
-    id: 'people',
-    title: 'Warm People',
-    subtitle: 'Unforgettable hospitality',
+    id: 'community',
+    title: 'Community Care',
+    subtitle: 'Health & local aid',
     borderClass: 'border border-[#718096]/60',
     iconColor: 'text-[#4A5568]',
     icon: (
@@ -202,7 +201,7 @@ const destinationFeatures = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
       </svg>
     ),
   },
