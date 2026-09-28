@@ -12,8 +12,6 @@ import {
   Wind,
 } from 'lucide-react';
 
-// Local High-Resolution Assets
-import lakeBg from '../../assets/lake.png';
 import everestImg from '../../assets/everest.png';
 import ktImg from '../../assets/kt.jpg';
 import pokharaImg from '../../assets/1s.jpg';
@@ -119,94 +117,6 @@ const destinationCards: DestinationCardItem[] = [
   },
 ];
 
-const destinationFeatures = [
-  {
-    id: 'schools',
-    title: 'Village Schools',
-    subtitle: 'Classroom & book support',
-    borderClass: 'border-2 border-[#E85D2A]',
-    iconColor: 'text-[#E85D2A]',
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#E85D2A]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-        <path d="M10 6h6M10 10h6" />
-      </svg>
-    ),
-  },
-  {
-    id: 'cleanups',
-    title: 'Trail Cleanups',
-    subtitle: 'Himalayan waste sweeps',
-    borderClass: 'border border-[#718096]/60',
-    iconColor: 'text-[#4A5568]',
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#4A5568]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-        <line x1="10" y1="11" x2="10" y2="17" />
-        <line x1="14" y1="11" x2="14" y2="17" />
-      </svg>
-    ),
-  },
-  {
-    id: 'reforestation',
-    title: 'Tree Planting',
-    subtitle: 'Mountain slope restoration',
-    borderClass: 'border border-[#718096]/60',
-    iconColor: 'text-[#4A5568]',
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#4A5568]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 2L4 14h5v6h6v-6h5L12 2z" />
-        <path d="M12 20v2" />
-      </svg>
-    ),
-  },
-  {
-    id: 'community',
-    title: 'Community Care',
-    subtitle: 'Health & local aid',
-    borderClass: 'border border-[#718096]/60',
-    iconColor: 'text-[#4A5568]',
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#4A5568]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-      </svg>
-    ),
-  },
-];
-
 export const DestinationExperience: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -269,25 +179,7 @@ export const DestinationExperience: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-12 lg:pb-14 bg-[#FAF8F5] overflow-hidden text-[#17201D]">
-      {/* ── Background Mountain & Lake Panorama: ONLY for the top header area (Never behind cards) ── */}
-      <div className="absolute top-0 left-0 right-0 h-[430px] sm:h-[470px] lg:h-[500px] z-0 pointer-events-none overflow-hidden select-none">
-        <img
-          src={lakeBg}
-          alt="Himalayan mountain panorama across Phewa Lake"
-          role="presentation"
-          className="w-full h-full object-cover object-[52%_35%] scale-[0.90] sm:scale-[0.90] lg:scale-[0.88] origin-[52%_35%] opacity-100"
-        />
-        {/* Generous atmospheric gradient covering the text area so all typography is 100% crisp and readable */}
-        <div className="absolute inset-y-0 left-0 w-full sm:w-[50%] lg:w-[35%] xl:w-[30%] bg-gradient-to-r from-[#FAF8F5] from-50% via-[#FAF8F5]/90 via-75% to-transparent z-1 pointer-events-none" />
-
-        {/* Right side gradient: dissolves the mountain photo into pure #FAF8F5 right before the far-right badges and map */}
-        <div className="absolute inset-y-0 right-0 w-full sm:w-[50%] lg:w-[32%] xl:w-[26%] bg-gradient-to-l from-[#FAF8F5] from-55% via-[#FAF8F5]/90 via-75% to-transparent z-1 pointer-events-none" />
-
-        {/* Bottom smooth fade to solid #FAF8F5: completely dissolves to pure background before the cards */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 sm:h-40 bg-gradient-to-t from-[#FAF8F5] via-[#FAF8F5] via-28% to-transparent z-1 pointer-events-none" />
-      </div>
-
+    <section className="relative pt-16 sm:pt-20 lg:pt-24 pb-14 sm:pb-16 lg:pb-20 bg-[#FAF8F5] overflow-hidden text-[#17201D] border-t border-[#EAE5DC]/60">
       {/* ── Topographic Contour Lines Decoration (Bottom-Left) ───── */}
       <svg
         className="absolute -bottom-16 -left-16 w-80 sm:w-96 lg:w-[480px] h-80 sm:h-96 lg:h-[480px] text-[#E2DDD5]/50 pointer-events-none z-[1]"
@@ -303,178 +195,45 @@ export const DestinationExperience: React.FC = () => {
       </svg>
 
       <div className="max-w-[1720px] 2xl:max-w-[1800px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-10">
-        {/* ── Handwritten Script Note: Floating in bright sky above the mountain range (Matching Mockup) ── */}
-        <div className="hidden lg:block absolute left-[31%] xl:left-[33%] -top-2 lg:-top-3 xl:-top-4 z-10 select-none pointer-events-none -rotate-3">
-          <div className="font-script text-2xl sm:text-[28px] text-[#4A3E31] leading-tight text-left">
-            <span>Same Country,</span>
-            <br />
-            <span className="inline-block relative">
-              A Thousand Stories
-              {/* Tapered artistic brush stroke matching mockup */}
-              <svg
-                className="w-28 h-2 text-[#C26638] mt-1 -ml-1"
-                viewBox="0 0 120 8"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M 4 4 Q 60 1 116 4 Q 60 7 4 4 Z" opacity="0.85" />
-              </svg>
-            </span>
-          </div>
+        
+        {/* ── Centered Bold Header (Matching Featured Treks) ── */}
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <h2 className="font-sans font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] text-[#12365B] tracking-tight leading-tight">
+            Featured Destinations
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-2xl mx-auto mt-3 font-normal">
+            From iconic high Himalayan summits to peaceful valleys, explore Nepal's most legendary travel destinations.
+          </p>
         </div>
 
-        {/* ── Top Header Area & Feature Badges Stack ───────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10 sm:mb-12 lg:mb-14 -mt-2 sm:-mt-3 lg:-mt-6 xl:-mt-8 relative z-10">
-          {/* Left Column: Eyebrow + Headline + Description + Button */}
-          <div className="lg:col-span-5 xl:col-span-4 space-y-3.5 sm:space-y-4">
-            <div className="flex items-center gap-3 pt-1">
-              <span className="w-8 h-[2.5px] bg-[#E85D2A] rounded-full" />
-              <span className="font-simplon-mono text-xs uppercase tracking-[0.25em] text-[#17201D] font-bold">
-                FEATURED DESTINATIONS
-              </span>
-            </div>
+        {/* ── Action bar: Explore all destinations + Carousel Controls ── */}
+        <div className="flex items-center justify-between sm:justify-end gap-5 mb-6 sm:mb-8">
+          <Link
+            to="/destinations"
+            className="group inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#D46238] hover:text-[#102942] transition-colors"
+          >
+            <span>Explore all destinations</span>
+            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
 
-            <h2 className="font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-[48px] text-[#102942] tracking-tight leading-tight">
-              Featured Destinations
-            </h2>
-
-            <p className="font-sans text-sm sm:text-[15px] text-[#59615D] leading-relaxed max-w-[430px] font-normal">
-              Explore handpicked Himalayan regions and valleys showcasing the true beauty and culture of Nepal.
-            </p>
-
-            <div className="pt-2 flex items-center gap-6 flex-wrap">
-              <Link
-                to="/destinations"
-                className="group inline-flex items-center gap-3 text-sm font-sans font-medium text-[#17201D] hover:text-[#E85D2A] transition-colors"
-              >
-                <div className="w-8 h-8 rounded-full border border-[#E85D2A] bg-white/80 group-hover:bg-[#E85D2A] text-[#E85D2A] group-hover:text-white flex items-center justify-center transition-all shadow-xs">
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                </div>
-                <span className="font-medium text-[14px]">Explore All Destinations</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Column: Coordinates + Nepal Map Outline + 4 Feature Badges (Moved up and right) */}
-          <div className="lg:col-span-7 xl:col-span-8 flex flex-col items-start lg:items-end justify-start gap-3 sm:gap-4 translate-x-0 lg:translate-x-6 xl:translate-x-10 lg:-mt-8 xl:-mt-10 relative z-10">
-            {/* Top Coordinates & Accurate Nepal Country Map Vector */}
-            <div className="w-full flex items-start justify-between lg:justify-end gap-6 sm:gap-10 mb-0 select-none relative">
-
-              {/* Geographic Coordinates with Compass Crosshair Reticle */}
-              <div className="flex items-center gap-2.5 text-[11px] sm:text-xs font-simplon-mono text-[#334155] font-semibold tracking-wider pt-2 relative z-1">
-                <span>28.3949° N</span>
-                <span className="text-[#94A3B8]">·</span>
-                <span>84.1240° E</span>
-                <svg
-                  className="w-4 h-4 text-[#475569] shrink-0"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <circle cx="12" cy="12" r="5" />
-                  <line x1="12" y1="2" x2="12" y2="22" />
-                  <line x1="2" y1="12" x2="22" y2="12" />
-                </svg>
-              </div>
-
-              {/* Accurate Geographic Nepal Map with Regional Borders (Positioned cleanly without cutoff) */}
-              <div className="relative z-1 mr-2 sm:mr-4 lg:mr-6 xl:mr-8 mt-0.5 sm:mt-1 lg:mt-1.5">
-                {/* Topographic Contour Wave Lines radiating behind map */}
-                <svg
-                  className="absolute -top-2 -right-3 w-48 sm:w-52 h-40 pointer-events-none text-[#CBD5E1]/45"
-                  viewBox="0 0 200 160"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="0.85"
-                  aria-hidden="true"
-                >
-                  <path d="M 70,0 C 95,25 130,45 200,55" />
-                  <path d="M 50,0 C 80,32 120,55 200,70" />
-                  <path d="M 30,0 C 65,38 110,65 200,85" />
-                  <path d="M 10,0 C 50,45 100,75 200,100" />
-                  <path d="M 0,15 C 40,55 90,85 200,115" />
-                  <path d="M 0,35 C 35,68 80,95 200,130" />
-                </svg>
-
-                <svg
-                  className="w-44 sm:w-52 lg:w-56 xl:w-60 h-auto text-[#102942]/35 hover:text-[#102942]/60 transition-colors"
-                  viewBox="0 -2 200 102"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-label="Geographic Map of Nepal"
-                >
-                  {/* Geographic Country Outer Border (Natural Earth cartography) */}
-                  <path
-                    d="M 187.5 61 L 188.4 61.6 L 188.4 62.6 L 188.3 63.7 L 187.4 66 L 186.6 67.6 L 185.6 71.1 L 184.7 77.1 L 184.9 78.1 L 187.5 81.6 L 188.5 84.2 L 188.6 86 L 187.5 89.1 L 186.3 92.5 L 185.7 93.2 L 185 93.5 L 181.8 92.3 L 179.6 92.5 L 177.1 93.2 L 174.4 93 L 172.3 92.6 L 169.5 94 L 166.9 93.3 L 165.2 92.4 L 164.1 90 L 163.6 89.7 L 158 92.2 L 156.7 92.4 L 153.3 91 L 150.4 89.7 L 149.4 89.3 L 146.7 88.8 L 144.2 88.5 L 141.5 87.7 L 138.2 88.8 L 136.9 88.7 L 135.6 87.9 L 135 86.3 L 134.8 84.8 L 133.7 83.8 L 131.9 83.5 L 129.5 84.5 L 125.9 85.7 L 124.8 85.5 L 123.7 85.1 L 123.3 84.8 L 122.8 83.4 L 122.3 83.1 L 121.4 83 L 120 82.7 L 118.2 81.6 L 112.6 79.1 L 112 78 L 112 75.6 L 111.7 74.6 L 111 73.5 L 108.2 72.4 L 102.7 70.7 L 99.7 69.3 L 98.2 69.9 L 95.4 70.5 L 93.9 71.8 L 92.1 71.4 L 87.9 70 L 85.6 69.9 L 84.2 70.3 L 83.9 71.1 L 82.2 71.9 L 80.5 71.2 L 77.2 70.3 L 74.4 69.8 L 70 68.7 L 69.5 67 L 68.8 65.3 L 67.7 65 L 63.8 65.3 L 60.3 63.5 L 56.4 61.1 L 54.8 60.3 L 53.7 60.1 L 52.8 60.4 L 51.7 60.9 L 50.7 61.1 L 48.7 60.1 L 46 58.6 L 42.7 56.8 L 38.9 54.3 L 37.3 52.9 L 36.6 51.8 L 35.8 50.8 L 32.5 49.2 L 29.8 47.9 L 26.7 46.4 L 26.1 46.1 L 24.9 45.1 L 23.1 44 L 21.6 43.6 L 21.1 44.3 L 20.7 45 L 19.4 44.8 L 17.4 43.6 L 15.2 42.4 L 13.5 41.2 L 11.8 40 L 11.4 39.2 L 12.1 36.4 L 13.1 34.1 L 14 33.6 L 15.4 32.1 L 15.9 29.4 L 15.8 27.1 L 17.2 23.8 L 19 20.4 L 22.3 16.7 L 23.7 15.4 L 25.2 14.6 L 28.2 11.9 L 28.8 11.4 L 30.1 10.7 L 31.4 10.5 L 32.3 10.9 L 33.3 12.3 L 34.5 13.7 L 36 13.6 L 37.7 12.4 L 41.2 7.1 L 46.1 6 L 50.8 6.5 L 54.9 7.3 L 56.1 9.1 L 56.9 11 L 57.4 12 L 58.8 13.1 L 64.6 15.7 L 68 18.2 L 72.6 21.4 L 76.1 22.8 L 79.2 22.9 L 81 24.2 L 83.6 26.7 L 85.8 29.6 L 88.6 32.3 L 90.5 32.2 L 93.1 31.3 L 96.3 30.2 L 98.2 30.8 L 99.9 31.5 L 100.5 32.9 L 101.5 35.5 L 102.7 38.2 L 104.5 39.2 L 106.6 40.6 L 107.8 41.7 L 111.9 43.8 L 112.5 44.6 L 113.3 45.2 L 114.3 45.5 L 115.1 45.9 L 116.4 46.1 L 121 44.8 L 122.3 45 L 123 45.2 L 123 45.7 L 122.2 47.6 L 121.5 50 L 122.2 51.3 L 124.2 51.8 L 128.5 52.1 L 134.3 52.1 L 136.1 53.3 L 137.9 55.2 L 139.7 58.4 L 140.4 59.7 L 141.3 60.1 L 142.8 59.6 L 143 58.3 L 143.1 56.3 L 144.4 55.7 L 145.2 56.2 L 146.1 57.7 L 148.6 59.1 L 150.3 59.7 L 152 59.5 L 152.7 59 L 153.5 56.3 L 154.8 55.9 L 156.5 56.1 L 157.1 56.6 L 157.8 57.7 L 159.8 58.2 L 161.8 58.9 L 163.7 59.7 L 166.3 61.7 L 169.6 62.1 L 173.4 62 L 175.4 62.1 L 176.8 62.2 L 178.1 62.1 L 182 60.7 L 183.6 60.6 L 185.6 60.7 L 187.5 61 Z"
-                    strokeWidth="1.3"
-                  />
-                  {/* Regional Boundary Divider Lines */}
-                  <path
-                    d="M 42.5 14.8 L 45.9 16.7 L 48.3 22.4 L 47.5 27.9 L 44.4 30.9 L 39.1 36.8 L 39.3 39.6 L 37.4 44.6 L 34.7 47.9"
-                    strokeWidth="0.85"
-                    strokeDasharray="2 2"
-                    opacity="0.55"
-                  />
-                  <path
-                    d="M 90.1 33.6 L 88.9 36.2 L 83.7 41.1 L 77.8 44.1 L 74.2 47.9 L 76.7 51.8 L 75.9 56.7 L 73.3 60.4 L 71.2 63"
-                    strokeWidth="0.85"
-                    strokeDasharray="2 2"
-                    opacity="0.55"
-                  />
-                  <path
-                    d="M 120.8 51.2 L 119.4 53.1 L 117.2 55.7 L 115.1 58 L 112.5 60.7 L 110.6 62.4 L 105.2 65 L 98 68.1 L 96.5 69.2"
-                    strokeWidth="0.85"
-                    strokeDasharray="2 2"
-                    opacity="0.55"
-                  />
-                  <path
-                    d="M 153.3 60 L 153.4 63.2 L 151.1 66.3 L 147.4 70.3 L 146.9 74 L 149.2 77.4 L 146.9 81.4 L 145.1 85.1 L 145.3 87.5"
-                    strokeWidth="0.85"
-                    strokeDasharray="2 2"
-                    opacity="0.55"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            {/* Mobile/Tablet Script Note (hidden on desktop where it floats in the sky) */}
-            <div className="lg:hidden font-script text-2xl text-[#5C5247] leading-tight text-left mb-6 -rotate-2 select-none">
-              <span>Same Country,</span>
-              <br />
-              <span className="inline-block relative">
-                A Thousand Stories
-                <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#E85D2A] rounded-full" />
-              </span>
-            </div>
-
-            {/* 4 Feature Badges List (Stacked on the right, matching mockup Image 2) */}
-            <div className="flex flex-col w-full max-w-[260px] self-start lg:self-end select-none">
-              {destinationFeatures.map((feat, idx) => (
-                <React.Fragment key={feat.id}>
-                  <div className="flex items-center gap-3.5 group py-1.5">
-                    <div
-                      className={`w-11 h-11 rounded-full ${feat.borderClass} bg-white flex items-center justify-center shrink-0 shadow-xs transition-transform duration-300 group-hover:scale-105`}
-                    >
-                      {feat.icon}
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="font-sans font-bold text-[14px] sm:text-[15px] text-[#102942] leading-tight tracking-tight">
-                        {feat.title}
-                      </h4>
-                      <p className="font-sans text-[12px] text-[#718096] leading-tight mt-1 font-normal">
-                        {feat.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                  {idx < destinationFeatures.length - 1 && (
-                    <div className="w-14 h-px bg-[#E2DDD5]/85 my-1.5 ml-14" />
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
+          {/* Carousel Arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => scroll('left')}
+              aria-label="Previous destination"
+              className="w-10 h-10 rounded-full border border-[#CBD5E0] bg-white/90 hover:bg-white text-[#102942] hover:text-[#D46238] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll('right')}
+              aria-label="Next destination"
+              className="w-10 h-10 rounded-full border border-[#CBD5E0] bg-white/90 hover:bg-white text-[#102942] hover:text-[#D46238] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
 

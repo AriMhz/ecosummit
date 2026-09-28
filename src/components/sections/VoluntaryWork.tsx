@@ -1,14 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, MapPin, CheckCircle2, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  MapPin,
+  CheckCircle2,
+  Sparkles,
+  BookOpen,
+  Trash2,
+  Trees,
+  Heart,
+} from 'lucide-react';
 
 interface VolunteerProject {
   id: string;
   title: string;
+  subtitle: string;
   location: string;
   badge: string;
   badgeColor: string;
+  iconBg: string;
+  iconColor: string;
+  icon: React.ReactNode;
   stat: string;
   description: string;
   activities: string[];
@@ -17,62 +30,78 @@ interface VolunteerProject {
 
 const volunteerProjects: VolunteerProject[] = [
   {
-    id: 'schools',
-    title: 'Himalayan Village School Support',
+    id: 'village-schools',
+    title: 'Village Schools',
+    subtitle: 'Classroom & book support',
     location: 'Solukhumbu & Helambu Valleys',
     badge: 'Education & Youth',
     badgeColor: 'bg-[#E85D2A]',
-    stat: '14 Schools Supported · 650+ Children',
-    description: 'Help provide school supplies, install clean solar lighting, and assist local teachers with conversational English, reading, and computer literacy in remote mountain settlements.',
+    iconBg: 'bg-[#FFF3EC]',
+    iconColor: 'text-[#E85D2A]',
+    icon: <BookOpen className="w-5 h-5" />,
+    stat: '14 Schools Supported · 650+ Students',
+    description: 'Help provide classroom learning materials, set up village reading libraries, and assist local teachers with conversational English and digital literacy in remote mountain settlements.',
     activities: [
       'Classroom library setup & book donation',
-      'Solar-powered lighting & digital tablets',
-      'English & creative workshop sessions',
+      'Solar-powered lighting & educational tablets',
+      'Conversational English & creative workshops',
     ],
     image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'trail-cleanups',
-    title: 'High-Altitude Trail & Waste Sweeps',
+    title: 'Trail Cleanups',
+    subtitle: 'Himalayan waste sweeps',
     location: 'Everest & Annapurna Sanctuary Trails',
-    badge: 'Eco & Wilderness Conservation',
+    badge: 'Eco Conservation',
     badgeColor: 'bg-[#2E7D32]',
-    stat: '8,500kg Plastic Removed · 120km Trails',
-    description: 'Work alongside local Sherpa environmental teams on organized high-pass sweeps to remove discarded plastics, restore campsites, and safeguard sacred glacial water sources.',
+    iconBg: 'bg-[#EDF7ED]',
+    iconColor: 'text-[#2E7D32]',
+    icon: <Trash2 className="w-5 h-5" />,
+    stat: '8,500kg Waste Removed · 120km Trails',
+    description: 'Work alongside Sherpa environmental teams on high-pass sweeps to clear discarded plastics, install eco-friendly waste stations, and safeguard sacred glacial waterways.',
     activities: [
-      'Plastic retrieval from high alpine passes',
+      'Plastic & litter sweeps on high alpine passes',
       'Installing eco-friendly trail waste bins',
-      'Glacial water source preservation',
+      'Protecting fragile glacial water sources',
     ],
     image: 'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    id: 'reforestation',
-    title: 'Himalayan Slope Reforestation',
+    id: 'tree-planting',
+    title: 'Tree Planting',
+    subtitle: 'Mountain slope restoration',
     location: 'Langtang & Lower Mustang Foothills',
-    badge: 'Climate & Habitat Action',
+    badge: 'Climate & Habitat',
     badgeColor: 'bg-[#1565C0]',
+    iconBg: 'bg-[#E8F1FC]',
+    iconColor: 'text-[#1565C0]',
+    icon: <Trees className="w-5 h-5" />,
     stat: '25,000+ Native Saplings Planted',
-    description: 'Plant native oak, pine, and wild rhododendron saplings on landslide-vulnerable mountain ridges to stabilize hillsides against monsoon rains and rebuild red panda habitats.',
+    description: 'Plant native oak, pine, and wild rhododendron saplings on vulnerable ridges to stabilize mountain slopes against monsoon landslides and restore wildlife habitats.',
     activities: [
-      'Planting indigenous tree saplings',
-      'Building natural erosion prevention terraces',
+      'Planting indigenous Himalayan tree saplings',
+      'Slope terracing & erosion prevention',
       'Community tree nursery maintenance',
     ],
     image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    id: 'health-water',
-    title: 'Village Clean Water & Health Camps',
+    id: 'community-care',
+    title: 'Community Care',
+    subtitle: 'Health & local aid',
     location: 'Gorkha & Ruby Valley Foothills',
-    badge: 'Community Healthcare & Water',
-    badgeColor: 'bg-[#6A1B9A]',
-    stat: '42 Ceramic Filters · 6 Medical Camps',
-    description: 'Distribute low-maintenance ceramic water filters to village families, conduct basic hygiene workshops, and assist visiting volunteer doctors in remote mobile clinics.',
+    badge: 'Community Health',
+    badgeColor: 'bg-[#C2410C]',
+    iconBg: 'bg-[#FFF7ED]',
+    iconColor: 'text-[#C2410C]',
+    icon: <Heart className="w-5 h-5" />,
+    stat: '42 Ceramic Filters · 6 Health Camps',
+    description: 'Distribute clean ceramic water filters to village families, host basic sanitation workshops, and provide essential volunteer support for remote mobile health clinics.',
     activities: [
-      'Ceramic water filtration distribution',
-      'Hygiene and clean sanitation workshops',
-      'Assisting rural mobile health camps',
+      'Clean ceramic drinking water filter setup',
+      'Family health & hygiene guidance sessions',
+      'Assisting visiting rural medical camps',
     ],
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
   },
@@ -85,16 +114,8 @@ export const VoluntaryWork: React.FC = () => {
     <section className="relative py-20 sm:py-24 lg:py-28 bg-[#FAF8F5] text-[#102942] overflow-hidden border-t border-[#EAE5DC]/60">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
         
-        {/* ── Centered Bold Header (Simple & High-Impact) ─────── */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center justify-center gap-2.5 mb-2.5">
-            <span className="w-5 h-[2px] bg-[#E85D2A] rounded-full" />
-            <span className="font-simplon-mono text-[11px] sm:text-xs font-bold tracking-[0.24em] text-[#E85D2A] uppercase">
-              COMMUNITY IMPACT &amp; ECO-SUMMIT INITIATIVE
-            </span>
-            <span className="w-5 h-[2px] bg-[#E85D2A] rounded-full" />
-          </div>
-
+        {/* ── Centered Bold Header (Matching Featured Treks) ── */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <h2 className="font-sans font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] text-[#12365B] tracking-tight leading-tight">
             Volunteer &amp; Community Work
           </h2>
@@ -121,7 +142,7 @@ export const VoluntaryWork: React.FC = () => {
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
                 {/* Badge top-left */}
                 <div className="absolute top-4 left-4 z-10">
@@ -142,19 +163,29 @@ export const VoluntaryWork: React.FC = () => {
               {/* Card Body */}
               <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between">
                 <div>
-                  {/* Location */}
-                  <div className="flex items-center gap-1.5 text-xs text-[#E85D2A] font-semibold mb-2">
+                  {/* Header Row: Icon + Title & Subtitle */}
+                  <div className="flex items-start gap-3.5 mb-3">
+                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-xs border border-black/5 ${project.iconBg} ${project.iconColor}`}>
+                      {project.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#102942] group-hover:text-[#E85D2A] transition-colors leading-tight">
+                        {project.title}
+                      </h3>
+                      <p className="font-sans text-xs text-[#718096] font-medium mt-0.5">
+                        {project.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Location Pin */}
+                  <div className="flex items-center gap-1.5 text-xs text-[#E85D2A] font-semibold mb-2.5">
                     <MapPin className="w-3.5 h-3.5 shrink-0" />
                     <span>{project.location}</span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#102942] group-hover:text-[#E85D2A] transition-colors leading-snug">
-                    {project.title}
-                  </h3>
-
                   {/* Description */}
-                  <p className="font-sans text-xs sm:text-[13.5px] text-[#59615D] leading-relaxed mt-2.5 font-normal">
+                  <p className="font-sans text-xs sm:text-[13.5px] text-[#59615D] leading-relaxed font-normal">
                     {project.description}
                   </p>
 
