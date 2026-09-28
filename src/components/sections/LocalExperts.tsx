@@ -4,16 +4,15 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ArrowLeft,
   ArrowRight,
+  ChevronRight,
   MapPin,
   Award,
   Languages,
   ShieldCheck,
-  Compass,
-  Heart,
+  Calendar,
   X,
   Quote,
   CheckCircle2,
-  Calendar,
   Sparkles,
 } from 'lucide-react';
 import { teamData } from '../../data/team';
@@ -137,146 +136,46 @@ export const LocalExperts: React.FC = () => {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
-        {/* ── 2. Header & Pillars Area ── */}
-        <div className="relative flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-12 sm:mb-16">
-          {/* Left: Headline & Narrative */}
-          <div className="max-w-2xl space-y-4">
-            {/* Eyebrow badge matching Image 1: — GROUNDED LEADERSHIP */}
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-[2.5px] bg-[#E85D2A] rounded-full" />
-              <span className="font-simplon-mono text-xs uppercase tracking-[0.25em] font-bold text-[#17201D]">
-                Grounded Leadership
-              </span>
-            </div>
+        {/* ── Centered Bold Header (Matching Featured Treks & Destinations) ── */}
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <h2 className="font-sans font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] text-[#12365B] tracking-tight leading-tight">
+            Meet Your Local Himalayan Experts
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-2xl mx-auto mt-3 font-normal">
+            Born and raised in the high mountain valleys, our certified Sherpa leaders and guides bring decades of alpine experience to every journey.
+          </p>
+        </div>
 
-            {/* Editorial Headline */}
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#102942] font-normal leading-[1.12] tracking-tight">
-              Meet Your Local <br />
-              <span className="italic font-normal">Himalayan Experts</span>
-            </h2>
+        {/* ── Action bar: Meet All Team + Carousel Navigation ── */}
+        <div className="flex items-center justify-between sm:justify-end gap-5 mb-6 sm:mb-8">
+          <Link
+            to="/team"
+            className="group inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#D46238] hover:text-[#102942] transition-colors"
+          >
+            <span>Meet all team</span>
+            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
 
-            {/* Narrative paragraph */}
-            <p className="font-sans text-sm sm:text-base text-[#4A5568] leading-relaxed font-light max-w-xl">
-              Our journeys are led by experienced local guides who understand Nepal’s trails, cultures,
-              and changing mountain conditions. Their local knowledge, practical support, and personal
-              care help travellers explore with greater confidence.
-            </p>
-
-            {/* ── 3 Value Proposition Pillars (Image 1 feature row) ── */}
-            <div className="pt-3 flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-6 border-t border-[#D6E2EC]/80 mt-6">
-              {/* Pillar 1: Local Knowledge */}
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full border border-[#102942]/20 bg-white/70 backdrop-blur-xs flex items-center justify-center text-[#102942] shrink-0 shadow-2xs">
-                  <Compass className="w-4 h-4 text-[#183E63]" />
-                </div>
-                <div>
-                  <span className="font-serif text-sm sm:text-[15px] font-bold text-[#102942] block leading-tight">
-                    Local Knowledge
-                  </span>
-                  <span className="text-[11px] text-[#59615D] block">
-                    Real insights, real experiences
-                  </span>
-                </div>
-              </div>
-
-              <div className="hidden sm:block w-[1px] h-8 bg-[#D6E2EC]" />
-
-              {/* Pillar 2: Trusted Support */}
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full border border-[#102942]/20 bg-white/70 backdrop-blur-xs flex items-center justify-center text-[#102942] shrink-0 shadow-2xs">
-                  <ShieldCheck className="w-4 h-4 text-[#1E7755]" />
-                </div>
-                <div>
-                  <span className="font-serif text-sm sm:text-[15px] font-bold text-[#102942] block leading-tight">
-                    Trusted Support
-                  </span>
-                  <span className="text-[11px] text-[#59615D] block">
-                    Safety in every step
-                  </span>
-                </div>
-              </div>
-
-              <div className="hidden sm:block w-[1px] h-8 bg-[#D6E2EC]" />
-
-              {/* Pillar 3: Personal Care */}
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full border border-[#102942]/20 bg-white/70 backdrop-blur-xs flex items-center justify-center text-[#102942] shrink-0 shadow-2xs">
-                  <Heart className="w-4 h-4 text-[#E85D2A]" />
-                </div>
-                <div>
-                  <span className="font-serif text-sm sm:text-[15px] font-bold text-[#102942] block leading-tight">
-                    Personal Care
-                  </span>
-                  <span className="text-[11px] text-[#59615D] block">
-                    More than just a guide
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: "Real People Real Journeys" + Carousel Navigation (matches Featured Journeys) */}
-          <div className="flex flex-col items-start lg:items-end justify-between gap-5 shrink-0 self-start lg:self-end">
-            <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9, rotate: -6 }}
-              animate={{ opacity: 1, scale: 1, rotate: -4 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="select-none pointer-events-none flex flex-col items-center lg:items-end"
+          {/* Carousel Arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleScroll('left')}
+              disabled={!canScrollLeft}
+              aria-label="Previous expert"
+              className="w-10 h-10 rounded-full border border-[#CBD5E0] bg-white/90 hover:bg-white text-[#102942] hover:text-[#D46238] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
             >
-              <div className="relative text-center lg:text-right">
-                <span className="font-script text-3xl sm:text-4xl lg:text-[42px] text-[#2C4A6F] font-bold tracking-wide block leading-[1.05] drop-shadow-2xs">
-                  Real People
-                </span>
-                <span className="font-script text-3xl sm:text-4xl lg:text-[42px] text-[#E85D2A] font-bold tracking-wide block leading-[1.05] drop-shadow-2xs">
-                  Real Journeys
-                </span>
-                {/* Hand-drawn curved underline swoop */}
-                <svg
-                  className="w-36 sm:w-44 h-4 text-[#E85D2A]/80 mt-0.5 ml-auto"
-                  viewBox="0 0 160 20"
-                  fill="none"
-                >
-                  <path
-                    d="M5 12 C 45 4, 110 4, 155 14 C 120 18, 60 16, 25 15"
-                    fill="currentColor"
-                  />
-                </svg>
-              </div>
-            </motion.div>
-
-            {/* Carousel Navigation Buttons & Link (like Featured Journeys) */}
-            <div className="flex items-center gap-4 pt-1">
-              <Link
-                to="/team"
-                className="group relative inline-flex items-center gap-2 text-xs font-simplon-mono font-bold tracking-[0.16em] uppercase text-[#102942] hover:text-[#E85D2A] transition-colors pb-1"
-              >
-                <span>MEET ALL TEAM</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#E85D2A]" />
-              </Link>
-
-              {/* Navigation Carousel Buttons */}
-              <div className="flex items-center gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => handleScroll('left')}
-                  disabled={!canScrollLeft}
-                  aria-label="Previous expert"
-                  className="w-11 h-11 rounded-full border border-[#CBD5E0] bg-white/80 hover:bg-white text-[#102942] hover:text-[#E85D2A] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleScroll('right')}
-                  disabled={!canScrollRight}
-                  aria-label="Next expert"
-                  className="w-11 h-11 rounded-full bg-[#102942] hover:bg-[#E85D2A] text-white flex items-center justify-center transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => handleScroll('right')}
+              disabled={!canScrollRight}
+              aria-label="Next expert"
+              className="w-10 h-10 rounded-full border border-[#CBD5E0] bg-white/90 hover:bg-white text-[#102942] hover:text-[#D46238] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 

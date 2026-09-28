@@ -352,53 +352,6 @@ export const DestinationExperience: React.FC = () => {
             ))}
           </div>
         </div>
-
-        {/* ── Bottom Micro Banner: "Plan Your Next Journey" ────────── */}
-        <div className="mt-14 pt-8 border-t border-[#E2DDD5]/70 flex flex-col lg:flex-row items-center justify-between gap-6 bg-white/60 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-white/80 shadow-xs">
-          {/* Left: Himalayan Peak Line Art + Eyebrow + Title */}
-          <div className="flex items-center gap-4 sm:gap-5 w-full lg:w-auto">
-            {/* 3-peak Himalayan line art matching mockup */}
-            <div className="shrink-0 text-[#102942]/60 hidden sm:block">
-              <svg
-                className="w-12 h-9"
-                viewBox="0 0 48 32"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                aria-hidden="true"
-              >
-                <path d="M4 28 L14 10 L24 28" strokeLinejoin="round" />
-                <path d="M18 20 L28 4 L40 28" strokeLinejoin="round" />
-                <path d="M34 18 L40 10 L46 28" strokeLinejoin="round" />
-                <path d="M2 28 H46" strokeLinecap="round" />
-              </svg>
-            </div>
-
-            <div className="sm:border-l sm:border-[#D5C7B5] sm:pl-5">
-              <span className="font-simplon-mono text-[10px] font-bold tracking-[0.25em] text-[#17201D] uppercase block mb-1">
-                NEPAL HAS MORE TO OFFER
-              </span>
-              <h3 className="font-serif text-2xl sm:text-3xl text-[#102942] font-normal leading-tight">
-                Plan Your Next Journey
-              </h3>
-            </div>
-          </div>
-
-          {/* Center / Right: Description + View All Destinations Button */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full lg:w-auto justify-between lg:justify-end">
-            <p className="text-xs sm:text-sm text-[#59615D] font-normal leading-relaxed max-w-xs">
-              From hidden valleys to iconic landmarks, find the perfect destination for your next
-              adventure.
-            </p>
-            <Link
-              to="/destinations"
-              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full border border-[#D5C7B5] bg-white hover:bg-[#102942] text-[#102942] hover:text-white hover:border-[#102942] text-xs font-simplon-mono font-bold tracking-[0.12em] uppercase transition-all shadow-xs hover:shadow-md shrink-0"
-            >
-              <span>View All Destinations</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   );
