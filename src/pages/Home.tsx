@@ -40,9 +40,6 @@ export const Home: React.FC = () => {
       {/* 8. Volunteer & Community Work */}
       <VoluntaryWork />
 
-      {/* 9. Meet Your Local Himalayan Experts */}
-      <LocalExperts />
-
       {/* 10. Private & Refined Journeys */}
       <PrivateJourneys />
 
@@ -61,8 +58,11 @@ export const Home: React.FC = () => {
       {/* 14. The Nepal Travel Guide */}
       <TravelGuidePreview />
 
-      {/* 15. Final Enquiry CTA */}
+      {/* 15. Final Enquiry CTA (BEGIN YOUR JOURNEY) */}
       <FinalCTA />
+
+      {/* 16. Our Team - Meet Your Local Himalayan Experts */}
+      <LocalExperts />
     </>
   );
 };
