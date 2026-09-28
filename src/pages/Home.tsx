@@ -3,8 +3,9 @@ import { Hero } from '../components/hero/Hero';
 import { HeroTrustBar } from '../components/hero/HeroTrustBar';
 import { CompanyIntro } from '../components/sections/CompanyIntro';
 import { FeaturedJourneys } from '../components/sections/FeaturedJourneys';
+import { FeaturedTours } from '../components/sections/FeaturedTours';
+import { FeaturedExpeditions } from '../components/sections/FeaturedExpeditions';
 import { WhyChooseUs } from '../components/sections/WhyChooseUs';
-import { ExploreCategories } from '../components/sections/ExploreCategories';
 import { DestinationExperience } from '../components/sections/DestinationExperience';
 import { LocalExperts } from '../components/sections/LocalExperts';
 import { PrivateJourneys } from '../components/sections/PrivateJourneys';
@@ -28,13 +29,16 @@ export const Home: React.FC = () => {
       <CompanyIntro />
 
 
-      {/* 4. Most-Loved Himalayan Journeys */}
+      {/* 4. Featured Treks */}
       <FeaturedJourneys />
 
-      {/* 7. More Ways to Explore Nepal */}
-      <ExploreCategories />
+      {/* 5. Featured Tours */}
+      <FeaturedTours />
 
-      {/* 8. Discover Nepal Beyond the Trails */}
+      {/* 6. Featured Expeditions */}
+      <FeaturedExpeditions />
+
+      {/* 7. Featured Destinations */}
       <DestinationExperience />
 
       {/* 9. Meet Your Local Himalayan Experts */}

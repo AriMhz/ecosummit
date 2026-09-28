@@ -335,17 +335,12 @@ export const DestinationExperience: React.FC = () => {
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] text-[#102942] font-normal leading-[1.08] sm:leading-[1.06] tracking-tight">
-              Unforgettable
-              <br />
-              Experiences Across
-              <br />
-              Nepal
+            <h2 className="font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-[48px] text-[#102942] tracking-tight leading-tight">
+              Featured Destinations
             </h2>
 
-            <p className="font-sans text-sm sm:text-[15px] text-[#374151] leading-relaxed max-w-[430px] font-normal">
-              From vibrant cities to remote mountain villages, explore handpicked destinations that
-              showcase the true beauty, culture and diversity of Nepal.
+            <p className="font-sans text-sm sm:text-[15px] text-[#59615D] leading-relaxed max-w-[430px] font-normal">
+              Explore handpicked Himalayan regions and valleys showcasing the true beauty and culture of Nepal.
             </p>
 
             <div className="pt-2 flex items-center gap-6 flex-wrap">
