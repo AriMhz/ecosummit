@@ -5,28 +5,28 @@ export const WhyChooseUs: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative w-full pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-28 lg:pb-32 bg-white text-[#102942] overflow-hidden">
+    <section className="relative w-full pt-16 sm:pt-20 lg:pt-24 pb-20 sm:pb-24 lg:pb-28 bg-white text-[#102942] overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
         
-        {/* ── Section Header (Moved downward with generous top spacing) ── */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        {/* ── Section Header ── */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
           {/* Eyebrow */}
-          <div className="inline-flex items-center justify-center gap-2.5 mb-3">
-            <span className="w-6 h-[2px] bg-[#E85D2A] rounded-full" />
-            <span className="font-simplon-mono text-xs uppercase tracking-[0.24em] text-[#E85D2A] font-bold">
+          <div className="inline-flex items-center justify-center gap-2.5 mb-2.5">
+            <span className="w-5 h-[2px] bg-[#E85D2A] rounded-full" />
+            <span className="font-simplon-mono text-[11px] sm:text-xs uppercase tracking-[0.24em] text-[#E85D2A] font-bold">
               THE ECOSUMMIT STANDARD
             </span>
-            <span className="w-6 h-[2px] bg-[#E85D2A] rounded-full" />
+            <span className="w-5 h-[2px] bg-[#E85D2A] rounded-full" />
           </div>
 
-          {/* Headline */}
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] text-[#102942] font-normal leading-[1.14] tracking-tight">
+          {/* Headline - Big & Bold */}
+          <h2 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[56px] text-[#102942] tracking-tight leading-tight">
             Why EcoSummit
           </h2>
 
-          {/* Narrative */}
-          <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-xl mx-auto mt-3 font-normal">
-            At EcoSummit Expeditions, we believe every journey should be meaningful, safe, and unforgettable. With experienced local guides, personalized itineraries, and dedicated support, we create authentic Himalayan adventures tailored to your travel goals.
+          {/* Shortened, Punchy Narrative */}
+          <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-lg mx-auto mt-3 font-normal">
+            Authentic, safe, and unforgettable Himalayan adventures tailored to you.
           </p>
         </div>
 
