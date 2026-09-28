@@ -12,7 +12,6 @@ interface JourneyCardProps {
 export const JourneyCard: React.FC<JourneyCardProps> = ({
   journey,
   variant = 'editorial',
-  imageAspect = 'balanced',
 }) => {
   const [isSaved, setIsSaved] = useState(false);
 
@@ -29,16 +28,6 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({
     const num = parseInt(journey.startingPrice.replace(/[^0-9]/g, ''), 10);
     return !isNaN(num) && num > 0 ? `US$ ${num.toLocaleString()}` : journey.startingPrice;
   })();
-
-  // Aspect ratio class for the card photo
-  const aspectClass =
-    imageAspect === 'portrait'
-      ? 'aspect-[4/5]'
-      : imageAspect === 'square'
-      ? 'aspect-square'
-      : imageAspect === 'landscape'
-      ? 'aspect-[16/11]'
-      : 'aspect-[16/13] sm:aspect-[16/12]'; // Taller, longer image with natural mountain framing
 
   // ── HORIZONTAL VARIANT (List view) ──
   if (variant === 'horizontal') {
@@ -104,108 +93,105 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({
     );
   }
 
-  // ── STANDARD HIGH-CONVERTING CARD (MATCHING REAL AGENCY REFERENCE IMAGES) ──
+  // ── FULL-BLEED LUXURY CARD (ZERO BULKY WHITE BOX, CINEMATIC HIMALAYAN DESIGN) ──
   return (
     <Link
       to={detailPath}
-      className="group flex flex-col bg-white border border-[#E8E2D8] hover:border-[#E85D2A]/60 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
+      className="group relative flex flex-col justify-between h-[490px] sm:h-[510px] rounded-[24px] overflow-hidden bg-[#102942] border border-black/10 hover:border-[#E85D2A]/70 shadow-[0_10px_30px_rgba(16,41,66,0.12)] hover:shadow-[0_24px_50px_rgba(16,41,66,0.30)] hover:-translate-y-1.5 transition-all duration-500 select-none cursor-pointer"
     >
-      {/* ── PHOTO CONTAINER (TALLER / LONGER IMAGE) ── */}
-      <div className={`relative ${aspectClass} overflow-hidden bg-[#EAE8E1]`}>
+      {/* ── FULL-BLEED BACKGROUND PHOTO ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-[#102942]">
         <img
           src={journey.featuredImage}
           alt={journey.title}
           loading="lazy"
-          className="w-full h-full object-cover object-[center_30%] group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover object-[center_30%] group-hover:scale-108 transition-transform duration-700 ease-out"
         />
 
-        {/* Subtle bottom gradient for badge legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+        {/* Top soft vignette for badge contrast */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/70 via-black/25 to-transparent pointer-events-none" />
 
-        {/* Top Badges Row */}
-        <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-auto">
-          {/* Destination / Region Pill */}
-          <span className="bg-[#142332]/90 backdrop-blur-md text-white text-xs sm:text-[12.5px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm border border-white/15">
-            <MapPin className="w-3.5 h-3.5 text-[#E85D2A]" />
-            <span>{journey.region || 'Nepal'}</span>
-          </span>
-
-          {/* Interactive Wishlist Heart Button */}
-          <button
-            type="button"
-            aria-label="Save to wishlist"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsSaved(!isSaved);
-            }}
-            className="w-9 h-9 rounded-full bg-white/95 hover:bg-white text-slate-700 hover:text-[#E85D2A] backdrop-blur-md flex items-center justify-center transition-all shadow-sm cursor-pointer"
-          >
-            <Heart className={`w-4.5 h-4.5 transition-colors ${isSaved ? 'fill-[#E85D2A] text-[#E85D2A]' : ''}`} />
-          </button>
-        </div>
-
-        {/* Bottom Photo Overlay Row (Days & Difficulty) */}
-        <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between text-white pointer-events-none">
-          {/* Days / Duration */}
-          <div className="flex items-center gap-1.5 bg-black/70 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-xs sm:text-[13px] font-bold border border-white/15 shadow-sm">
-            <Calendar className="w-4 h-4 text-[#E85D2A]" />
-            <span>{journey.duration}</span>
-          </div>
-
-          {/* Difficulty Badge */}
-          <div className="flex items-center gap-1.5 bg-black/70 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-xs sm:text-[13px] font-semibold border border-white/15 shadow-sm">
-            <span className="text-white/75 text-[11px] uppercase tracking-wide font-mono">Grade:</span>
-            <span className="font-extrabold text-[#FED7AA]">{journey.difficulty}</span>
-          </div>
-        </div>
+        {/* Bottom deep luxury gradient overlay */}
+        <div className="absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-black/95 via-black/80 via-50% to-transparent pointer-events-none" />
       </div>
 
-      {/* ── CARD CONTENT (NO DESCRIPTION! PUNCHY, CLEAN AGENCY DESIGN) ── */}
-      <div className="p-5 sm:p-6 flex flex-col justify-between flex-grow space-y-4">
-        <div className="space-y-3">
-          {/* Rating and Altitude Meta Row */}
-          <div className="flex items-center justify-between text-xs sm:text-sm font-sans">
-            <div className="flex items-center gap-1.5 text-slate-700 font-semibold">
-              <Mountain className="w-4 h-4 text-slate-400 shrink-0" />
-              <span>Max {journey.maxAltitude ? journey.maxAltitude.split(' ')[0] : '4,130m'}</span>
-            </div>
+      {/* ── TOP BADGES ROW ── */}
+      <div className="relative z-10 p-4 sm:p-5 flex items-center justify-between pointer-events-auto">
+        {/* Region Pill */}
+        <span className="bg-black/60 backdrop-blur-md text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/20 shadow-md">
+          <MapPin className="w-3.5 h-3.5 text-[#E85D2A]" />
+          <span className="truncate max-w-[170px]">{journey.region || 'Nepal'}</span>
+        </span>
 
-            <div className="flex items-center gap-1 text-amber-600 font-bold text-xs sm:text-sm">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-              <span>5.0</span>
-              <span className="text-slate-400 font-normal text-xs">(48)</span>
-            </div>
+        {/* Interactive Wishlist Heart Button */}
+        <button
+          type="button"
+          aria-label="Save to wishlist"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsSaved(!isSaved);
+          }}
+          className="w-9 h-9 rounded-full bg-black/45 hover:bg-white text-white hover:text-[#E85D2A] backdrop-blur-md border border-white/20 flex items-center justify-center transition-all shadow-md cursor-pointer"
+        >
+          <Heart className={`w-4 h-4 transition-colors ${isSaved ? 'fill-[#E85D2A] text-[#E85D2A]' : ''}`} />
+        </button>
+      </div>
+
+      {/* ── BOTTOM CONTENT OVERLAY (NO WHITE BOX!) ── */}
+      <div className="relative z-10 p-5 sm:p-6 flex flex-col justify-end">
+        {/* Meta badges: Duration, Grade, Altitude & Rating */}
+        <div className="flex flex-wrap items-center gap-2 mb-2.5">
+          <span className="inline-flex items-center gap-1 bg-white/15 backdrop-blur-md text-white px-2.5 py-1 rounded-md text-[11px] font-semibold border border-white/15">
+            <Calendar className="w-3 h-3 text-[#E85D2A]" />
+            <span>{journey.duration}</span>
+          </span>
+
+          {journey.difficulty && (
+            <span className="inline-flex items-center gap-1 bg-white/15 backdrop-blur-md text-[#FED7AA] px-2.5 py-1 rounded-md text-[11px] font-bold border border-white/15">
+              <span>Grade: {journey.difficulty}</span>
+            </span>
+          )}
+
+          {journey.maxAltitude && (
+            <span className="inline-flex items-center gap-1 bg-black/40 backdrop-blur-md text-white/85 px-2.5 py-1 rounded-md text-[11px] font-medium border border-white/10 hidden sm:inline-flex">
+              <Mountain className="w-3 h-3 text-white/70" />
+              <span>Max {journey.maxAltitude.split(' ')[0]}</span>
+            </span>
+          )}
+
+          <div className="ml-auto flex items-center gap-1 text-amber-400 font-bold text-xs bg-black/40 backdrop-blur-md px-2 py-1 rounded-md border border-white/10">
+            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+            <span>5.0</span>
+            <span className="text-white/60 font-normal text-[10px]">(48)</span>
           </div>
-
-          {/* Title: Clean, modern, authoritative bold sans-serif, significantly larger */}
-          <h3
-            style={{ fontFamily: 'var(--font-simplon), var(--font-sans), sans-serif' }}
-            className="!font-sans text-xl sm:text-[22px] lg:text-[23px] font-extrabold text-[#142332] group-hover:text-[#E85D2A] transition-colors leading-snug line-clamp-2 tracking-tight"
-          >
-            {journey.title}
-          </h3>
         </div>
 
-        {/* ── BOTTOM PRICE & CTA ROW ── */}
-        <div className="pt-4 border-t border-[#F0ECE1] flex items-end justify-between gap-2">
-          {/* Price: Big, Bold, Highlighted Terracotta */}
+        {/* Title */}
+        <h3
+          style={{ fontFamily: 'var(--font-simplon), var(--font-sans), sans-serif' }}
+          className="!font-sans text-xl sm:text-[22px] font-extrabold text-white group-hover:text-[#F6AD55] transition-colors leading-snug tracking-tight mb-3 line-clamp-2"
+        >
+          {journey.title}
+        </h3>
+
+        {/* Bottom Price & CTA Row */}
+        <div className="pt-3 border-t border-white/15 flex items-center justify-between gap-3">
           <div>
-            <span className="text-[11px] sm:text-xs uppercase tracking-wider text-slate-500 font-bold block leading-tight">
+            <span className="text-[10px] uppercase tracking-wider text-white/60 font-bold block leading-none">
               Estimated From
             </span>
-            <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-2xl sm:text-[28px] font-black text-[#E85D2A] tracking-tight leading-none font-sans">
+            <div className="flex items-baseline gap-1 mt-1">
+              <span className="text-xl sm:text-2xl font-black text-[#F6AD55] font-sans tracking-tight">
                 {formattedPrice}
               </span>
-              <span className="text-xs sm:text-[13px] text-slate-500 font-semibold">/ pax</span>
+              <span className="text-xs text-white/75 font-semibold">/ pax</span>
             </div>
           </div>
 
-          {/* View Detail Pill Button */}
-          <span className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#FAF8F5] group-hover:bg-[#E85D2A] border border-[#E2DDD5] group-hover:border-[#E85D2A] text-xs sm:text-sm font-bold text-[#142332] group-hover:text-white transition-all duration-300 shadow-2xs shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/15 group-hover:bg-[#E85D2A] text-white text-xs font-bold transition-all duration-300 border border-white/20 group-hover:border-[#E85D2A] shadow-xs shrink-0">
             <span>View Detail</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </span>
         </div>
       </div>
