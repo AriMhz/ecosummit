@@ -67,8 +67,8 @@ export const Hero: React.FC = () => {
       {/* 1. Full-screen Cinematic Background */}
       <HeroBackground slides={slides} currentIndex={currentIndex} />
 
-      {/* 2. Main Hero Content (centered middle anchor) */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-14 w-full flex-1 flex flex-col justify-center items-center pb-12 sm:pb-16 pt-24 text-center">
+      {/* 2. Main Hero Content (anchored in lower-middle over clouds) */}
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-14 w-full flex-1 flex flex-col justify-end items-center pb-14 sm:pb-16 lg:pb-20 pt-36 sm:pt-40 text-center">
         <HeroContent
           slide={activeSlide}
           slides={slides}

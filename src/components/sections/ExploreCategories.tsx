@@ -61,15 +61,15 @@ export const ExploreCategories: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Primary Category Grid (Hero Card + 2 Stacked Cards) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 mb-8 lg:mb-10">
+        {/* ── Primary Category Grid (1 Hero Card + 4 Balanced Grid Cards) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch mb-8 lg:mb-10">
           {/* Card 1: Trekking & Expeditions (Large Hero Card) */}
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 rounded-[26px] overflow-hidden relative group min-h-[460px] sm:min-h-[500px] flex flex-col justify-between p-6 sm:p-8 shadow-md hover:shadow-2xl transition-all duration-500"
+            className="lg:col-span-5 rounded-[26px] overflow-hidden relative group min-h-[460px] sm:min-h-[520px] lg:h-full flex flex-col justify-between p-6 sm:p-8 shadow-md hover:shadow-2xl transition-all duration-500"
           >
             <Link to="/treks" className="absolute inset-0 z-20" aria-label="Trekking & Expeditions" />
 
