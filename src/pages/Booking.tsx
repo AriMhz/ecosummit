@@ -12,7 +12,6 @@ import {
   ArrowRight,
   ArrowLeft,
   Phone,
-  Plane,
   Car,
 } from 'lucide-react';
 import { allJourneys, getJourneyBySlug } from '../data/journeys';
@@ -29,9 +28,6 @@ export const Booking: React.FC = () => {
   const [selectedSlug, setSelectedSlug] = useState(
     slugParam || 'annapurna-sanctuary-base-camp'
   );
-
-  // If slugParam was passed in URL (e.g. from "Book This Trip"), greyout/lock the trip selection
-  const [isTripLocked, setIsTripLocked] = useState(Boolean(slugParam));
 
   // Match journey by slug or default to first popular journey (Annapurna Sanctuary or Everest)
   const selectedJourney =
@@ -52,11 +48,10 @@ export const Booking: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Sync selectedSlug & lock state if search param changes
+  // Sync selectedSlug if search param changes
   useEffect(() => {
     if (slugParam) {
       setSelectedSlug(slugParam);
-      setIsTripLocked(true);
     }
   }, [slugParam]);
 
@@ -541,286 +536,224 @@ export const Booking: React.FC = () => {
                       onClick={handleStep1Continue}
                       className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                     >
-                      <span>Continue to Traveler Details (Step 2)</span>
+                      <span>Continue to Details</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* ── STEP 2: LEAD TRAVELLER & FLIGHT COORDINATION ── */}
+              {/* ── STEP 2: LEAD TRAVELER DETAILS ── */}
               {currentStep === 2 && (
-                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-5 animate-in fade-in duration-300">
+                <div className="bg-white rounded-2xl border border-[#E8E2D8] p-6 sm:p-7 shadow-xs space-y-6 animate-in fade-in duration-300">
                   <div className="flex items-start gap-3">
                     <span className="w-7 h-7 rounded-full bg-[#142332] text-[#C8A97A] text-xs font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                       2
                     </span>
                     <div>
                       <h3 className="font-sans text-lg font-bold text-[#142332]">
-                        Lead Traveller &amp; Arrival Logistics
+                        Lead Traveler Details
                       </h3>
                       <p className="text-xs text-[#566370]">
-                        Primary contact details for national park permits, airport pickup, and operations.
+                        Enter your contact details to reserve your trip.
                       </p>
                     </div>
                   </div>
 
-                <div className="space-y-4 text-xs font-sans">
-                  {/* Row 1: Full Name & Email Address */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Full Name * <span className="text-[#7A8895] font-normal">(As per passport)</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={leadTraveler.fullName}
-                        onChange={(e) => setLeadTraveler({ ...leadTraveler, fullName: e.target.value })}
-                        placeholder="e.g. Johnathan Smith"
-                        className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Email Address * <span className="text-[#7A8895] font-normal">(For trip voucher &amp; permits)</span>
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={leadTraveler.email}
-                        onChange={(e) => setLeadTraveler({ ...leadTraveler, email: e.target.value })}
-                        placeholder="e.g. john.smith@example.com"
-                        className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Row 2: Selected Trip & Phone Number */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <label className="block text-[11px] font-bold text-[#334155]">
-                          Selected Trip * <span className="text-[#7A8895] font-normal">(Switch package anytime)</span>
+                  <div className="space-y-4 text-xs font-sans">
+                    {/* Row 1: Full Name & Email */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                          Full Name <span className="text-[#D46238]">*</span>
                         </label>
-                        {isTripLocked && (
-                          <button
-                            type="button"
-                            onClick={() => setIsTripLocked(false)}
-                            className="text-[#D46238] hover:text-[#B8522E] text-[10.5px] font-bold underline cursor-pointer"
-                          >
-                            Switch package
-                          </button>
-                        )}
+                        <input
+                          type="text"
+                          required
+                          value={leadTraveler.fullName}
+                          onChange={(e) => setLeadTraveler({ ...leadTraveler, fullName: e.target.value })}
+                          placeholder="First and last name"
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        />
                       </div>
 
-                      {isTripLocked ? (
-                        <div className="w-full border border-slate-300 bg-slate-100/90 rounded-xl px-3.5 py-2.5 text-xs text-slate-700 font-medium flex items-center justify-between cursor-not-allowed select-none shadow-2xs">
-                          <div className="flex items-center gap-2 truncate">
-                            <span className="w-2 h-2 rounded-full bg-slate-400 shrink-0" />
-                            <span className="truncate">{selectedJourney.title} ({selectedJourney.duration})</span>
-                          </div>
-                          <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-slate-500 bg-slate-200/80 px-2 py-0.5 rounded shrink-0 ml-2">
-                            <Lock className="w-2.5 h-2.5" />
-                            <span>Pre-selected</span>
-                          </span>
-                        </div>
-                      ) : (
-                        <select
-                          value={selectedSlug}
-                          onChange={(e) => setSelectedSlug(e.target.value)}
-                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white font-medium focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                        >
-                          {allJourneys.map((j) => (
-                            <option key={j.slug} value={j.slug}>
-                              {j.title} ({j.duration})
-                            </option>
-                          ))}
-                        </select>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Phone / WhatsApp Number * <span className="text-[#7A8895] font-normal">(For emergency coordination)</span>
-                      </label>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                        <select
-                          value={leadTraveler.countryCode}
-                          onChange={(e) => setLeadTraveler({ ...leadTraveler, countryCode: e.target.value })}
-                          className="border border-[#CBD5E1] rounded-xl px-2.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63]"
-                        >
-                          {countryCodes.map((cc) => (
-                            <option key={cc.code} value={cc.code}>
-                              {cc.code} ({cc.country})
-                            </option>
-                          ))}
-                        </select>
+                      <div>
+                        <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                          Email Address <span className="text-[#D46238]">*</span>
+                        </label>
                         <input
-                          type="tel"
+                          type="email"
                           required
-                          value={leadTraveler.mobileNumber}
-                          onChange={(e) => setLeadTraveler({ ...leadTraveler, mobileNumber: e.target.value })}
-                          placeholder="e.g. 555-0199"
-                          className="col-span-2 sm:col-span-3 border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          value={leadTraveler.email}
+                          onChange={(e) => setLeadTraveler({ ...leadTraveler, email: e.target.value })}
+                          placeholder="you@example.com"
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
                         />
                       </div>
                     </div>
-                  </div>
 
-                  {/* Row 3: Estimated Arrival Date & Nationality */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Estimated Arrival Date in Kathmandu * <span className="text-[#7A8895] font-normal">(Tribhuvan KTM)</span>
-                      </label>
-                      <div className="relative">
-                        <Calendar className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3" />
+                    {/* Row 2: Phone & Country */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                          Phone / WhatsApp <span className="text-[#D46238]">*</span>
+                        </label>
+                        <div className="flex gap-2">
+                          <select
+                            value={leadTraveler.countryCode}
+                            onChange={(e) => setLeadTraveler({ ...leadTraveler, countryCode: e.target.value })}
+                            className="w-24 border border-[#CBD5E1] rounded-xl px-2 py-2.5 text-xs text-[#142332] bg-white shrink-0 focus:outline-none focus:border-[#183E63]"
+                          >
+                            {countryCodes.map((cc) => (
+                              <option key={cc.code} value={cc.code}>
+                                {cc.code} ({cc.country})
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="tel"
+                            required
+                            value={leadTraveler.mobileNumber}
+                            onChange={(e) => setLeadTraveler({ ...leadTraveler, mobileNumber: e.target.value })}
+                            placeholder="Mobile number"
+                            className="flex-1 border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                          Country of Residence <span className="text-[#D46238]">*</span>
+                        </label>
+                        <select
+                          value={leadTraveler.nationality}
+                          onChange={(e) => setLeadTraveler({ ...leadTraveler, nationality: e.target.value })}
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        >
+                          {countries.map((c) => (
+                            <option key={c} value={c}>
+                              {c}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Row 3: Date of Birth & Flight Details */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                          Date of Birth <span className="text-[#D46238]">*</span>
+                        </label>
                         <input
                           type="date"
                           required
-                          value={startDate}
-                          onChange={(e) => setStartDate(e.target.value)}
-                          className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                          value={leadTraveler.dob}
+                          onChange={(e) => setLeadTraveler({ ...leadTraveler, dob: e.target.value })}
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                          Flight Details <span className="font-normal text-[#7A8895]">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={leadTraveler.flightDetails}
+                          onChange={(e) => setLeadTraveler({ ...leadTraveler, flightDetails: e.target.value })}
+                          placeholder="e.g. Airline, flight no. or TBD"
+                          className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
                         />
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                        Nationality * <span className="text-[#7A8895] font-normal">(Required for permits &amp; TIMS)</span>
+                    {/* Row 4: Complimentary Airport Pickup */}
+                    <div className="pt-1">
+                      <label className="block text-xs font-semibold text-[#334155] mb-2 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5">
+                          <Car className="w-3.5 h-3.5 text-[#183E63]" />
+                          <span>Airport Pickup in Kathmandu</span>
+                        </span>
+                        <span className="text-[10px] font-bold text-[#2E7D32] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                          Complimentary
+                        </span>
                       </label>
-                      <select
-                        value={leadTraveler.nationality}
-                        onChange={(e) => setLeadTraveler({ ...leadTraveler, nationality: e.target.value })}
-                        className="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                      >
-                        {countries.map((c) => (
-                          <option key={c} value={c}>
-                            {c}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setLeadTraveler({ ...leadTraveler, airportPickup: 'yes' })}
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                            leadTraveler.airportPickup === 'yes'
+                              ? 'bg-[#142332] text-white border-[#142332] shadow-xs'
+                              : 'bg-white hover:bg-[#FAF8F5] border-[#CBD5E1] text-[#334155]'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2 h-2 rounded-full ${leadTraveler.airportPickup === 'yes' ? 'bg-[#E5A93C]' : 'bg-slate-300'}`} />
+                            <span className="font-medium text-xs">Yes, please pick me up</span>
+                          </div>
+                          {leadTraveler.airportPickup === 'yes' && <Check className="w-3.5 h-3.5 text-[#E5A93C]" />}
+                        </button>
 
-                  {/* Row 4: Flight Details */}
-                  <div>
-                    <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                      Flight Details <span className="text-[#7A8895] font-normal">(Optional — e.g. Airline, flight number, landing time in KTM)</span>
-                    </label>
-                    <div className="relative">
-                      <Plane className="w-4 h-4 text-[#7A8895] absolute left-3.5 top-3" />
-                      <input
-                        type="text"
-                        value={leadTraveler.flightDetails}
-                        onChange={(e) => setLeadTraveler({ ...leadTraveler, flightDetails: e.target.value })}
-                        placeholder="e.g. Qatar Airways QR648, arriving 14:15 at Tribhuvan International Airport (or 'TBD / will send later')"
-                        className="w-full border border-[#CBD5E1] rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
+                        <button
+                          type="button"
+                          onClick={() => setLeadTraveler({ ...leadTraveler, airportPickup: 'no' })}
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                            leadTraveler.airportPickup === 'no'
+                              ? 'bg-[#142332] text-white border-[#142332] shadow-xs'
+                              : 'bg-white hover:bg-[#FAF8F5] border-[#CBD5E1] text-[#334155]'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2 h-2 rounded-full ${leadTraveler.airportPickup === 'no' ? 'bg-[#E5A93C]' : 'bg-slate-300'}`} />
+                            <span className="font-medium text-xs">No, I'll arrange my own</span>
+                          </div>
+                          {leadTraveler.airportPickup === 'no' && <Check className="w-3.5 h-3.5 text-[#E5A93C]" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Row 5: Special Requests */}
+                    <div className="pt-1">
+                      <label className="block text-xs font-semibold text-[#334155] mb-1.5">
+                        Special Requests <span className="font-normal text-[#7A8895]">(Optional)</span>
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={leadTraveler.specialRequirements}
+                        onChange={(e) => setLeadTraveler({ ...leadTraveler, specialRequirements: e.target.value })}
+                        placeholder="Dietary needs, room requests, or other notes..."
+                        className="w-full border border-[#CBD5E1] rounded-xl p-3 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
                       />
                     </div>
                   </div>
 
-                  {/* Row 5: Airport Pickup (Yes / No Radio) */}
-                  <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Car className="w-4 h-4 text-[#183E63]" />
-                      <label className="text-[11px] font-bold text-[#142332] uppercase tracking-wider font-mono">
-                        Airport Pickup
-                      </label>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#183E63]/10 text-[#183E63]">
-                        Complimentary
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-[#566370]">
-                      EcoSummit provides a private vehicle and representative with a traditional marigold garland (Khata) greeting at Tribhuvan International Airport.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1">
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="airportPickup"
-                          value="yes"
-                          checked={leadTraveler.airportPickup === 'yes'}
-                          onChange={() => setLeadTraveler({ ...leadTraveler, airportPickup: 'yes' })}
-                          className="w-4 h-4 text-[#183E63] focus:ring-[#183E63]"
-                        />
-                        <span className="text-xs font-semibold text-[#142332]">
-                          Yes, please (Complimentary Private Pickup)
-                        </span>
-                      </label>
+                  {/* Step 2 Back & Continue Buttons */}
+                  <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentStep(1);
+                        window.scrollTo({ top: 160, behavior: 'smooth' });
+                      }}
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      <span>Back</span>
+                    </button>
 
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="airportPickup"
-                          value="no"
-                          checked={leadTraveler.airportPickup === 'no'}
-                          onChange={() => setLeadTraveler({ ...leadTraveler, airportPickup: 'no' })}
-                          className="w-4 h-4 text-[#183E63] focus:ring-[#183E63]"
-                        />
-                        <span className="text-xs text-[#566370]">
-                          No, I will make my own way to the hotel
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-
-                  {/* Row 6: Date of Birth */}
-                  <div className="pt-1">
-                    <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                      Date of Birth * <span className="text-[#7A8895] font-normal">(Required for government climbing &amp; trekking permits)</span>
-                    </label>
-                    <input
-                      type="date"
-                      required
-                      value={leadTraveler.dob}
-                      onChange={(e) => setLeadTraveler({ ...leadTraveler, dob: e.target.value })}
-                      className="w-full sm:w-1/2 border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#142332] bg-white focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                    />
-                  </div>
-
-                  {/* Row 7: Additional Requirements (Optional) */}
-                  <div className="pt-1">
-                    <label className="block text-[11px] font-bold text-[#334155] mb-1">
-                      Additional Requirements (Optional)
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={leadTraveler.specialRequirements}
-                      onChange={(e) => setLeadTraveler({ ...leadTraveler, specialRequirements: e.target.value })}
-                      placeholder="Please tell us more about yourself to help you better (e.g. dietary restrictions, rooming requests, equipment rental, previous altitude experience)..."
-                      className="w-full border border-[#CBD5E1] rounded-xl p-3 text-xs text-[#142332] focus:outline-none focus:border-[#183E63] focus:ring-1 focus:ring-[#183E63]"
-                    />
+                    <button
+                      type="button"
+                      onClick={handleStep2Continue}
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                    >
+                      <span>Continue to Payment</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
-
-                {/* Step 2 Back & Continue Buttons */}
-                <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCurrentStep(1);
-                      window.scrollTo({ top: 160, behavior: 'smooth' });
-                    }}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span>Back to Step 1</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleStep2Continue}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#142332] hover:bg-[#1D3A50] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
-                  >
-                    <span>Continue to Payment Selection (Step 3)</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
 
             {/* ── STEP 3: PAYMENT OPTIONS ── */}
             {currentStep === 3 && (
@@ -840,10 +773,10 @@ export const Booking: React.FC = () => {
                 </div>
 
                 {/* SSL Encryption Notice */}
-                <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-amber-950 flex items-center gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 text-amber-950 flex items-center gap-2.5 text-xs">
                   <Lock className="w-4 h-4 text-amber-700 shrink-0" />
                   <span>
-                    This is a secure and SSL encrypted checkout. Your reservation is immediately placed on hold with our Kathmandu operations desk!
+                    256-bit SSL encrypted. Direct reservation hold with our Kathmandu desk.
                   </span>
                 </div>
 
@@ -920,7 +853,7 @@ export const Booking: React.FC = () => {
                     className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <ArrowLeft className="w-4 h-4" />
-                    <span>Back to Traveler Details</span>
+                    <span>Back</span>
                   </button>
 
                   <button
@@ -932,7 +865,7 @@ export const Booking: React.FC = () => {
                       <span>Securing Your Reservation...</span>
                     ) : (
                       <>
-                        <span>Proceed To Payment / Reservation</span>
+                        <span>Confirm Reservation</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
