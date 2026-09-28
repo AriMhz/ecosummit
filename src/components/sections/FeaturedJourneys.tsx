@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, MapPin, Mountain, Compass, Star, Award, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ChevronRight, MapPin, Mountain, Compass, Star, Award, Sparkles } from 'lucide-react';
 import ourTeamBg from '../../assets/our team.png';
 import everestImg from '../../assets/everest.png';
 import annapurnaImg from '../../assets/wwa.png';
@@ -231,58 +231,44 @@ export const FeaturedJourneys: React.FC = () => {
       </svg>
 
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
-        {/* ── Editorial Section Header ─────────────────────────── */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 sm:mb-14 gap-8">
-          {/* Left: Eyebrow + Headline + Description */}
-          <div className="max-w-2xl space-y-4">
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-[2.5px] bg-[#E85D2A] rounded-full" />
-              <span className="font-simplon-mono text-xs uppercase tracking-[0.25em] text-[#17201D] font-bold">
-                FEATURED JOURNEYS
-              </span>
-            </div>
+        {/* ── Centered Bold Header matching reference design ─────── */}
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <h2 className="font-sans font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-[62px] text-[#12365B] tracking-tight leading-tight">
+            Featured Treks
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-2xl mx-auto mt-3 font-normal">
+            Embark on an unforgettable trekking adventure through breathtaking landscapes and discover the beauty of nature like never before.
+          </p>
+        </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] text-[#102942] font-normal leading-[1.15] tracking-tight">
-              Our Most Loved
-              <br />
-              Himalayan Treks
-            </h2>
+        {/* ── Action bar: View all treks + Carousel Arrows ─────── */}
+        <div className="flex items-center justify-between sm:justify-end gap-5 mb-6 sm:mb-8">
+          <Link
+            to="/treks"
+            className="group inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#D46238] hover:text-[#102942] transition-colors"
+          >
+            <span>View all treks</span>
+            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
 
-            <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed font-normal max-w-xl">
-              Curated routes and expert-led expeditions across Nepal’s iconic mountain trails.
-            </p>
-          </div>
-
-          {/* Right: View All Link + Carousel Arrows positioned in the mountain sky */}
-          <div className="flex flex-col items-start lg:items-end gap-5 shrink-0">
-            <Link
-              to="/treks"
-              className="group relative inline-flex items-center gap-2 text-xs font-simplon-mono font-bold tracking-[0.16em] uppercase text-[#102942] hover:text-[#E85D2A] transition-colors pb-1"
+          {/* Navigation Carousel Buttons */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous trek"
+              className="w-10 h-10 rounded-full border border-[#CBD5E0] bg-white/80 hover:bg-white text-[#102942] hover:text-[#D46238] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer"
             >
-              <span>VIEW ALL JOURNEYS</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#E85D2A]" />
-            </Link>
-
-            {/* Navigation Carousel Buttons */}
-            <div className="flex items-center gap-2.5">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label="Previous journey"
-                className="w-11 h-11 rounded-full border border-[#CBD5E0] bg-white/80 hover:bg-white text-[#102942] hover:text-[#E85D2A] flex items-center justify-center transition-all shadow-xs hover:shadow-md cursor-pointer"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next journey"
-                className="w-11 h-11 rounded-full bg-[#102942] hover:bg-[#E85D2A] text-white flex items-center justify-center transition-all shadow-md hover:shadow-lg cursor-pointer"
-              >
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next trek"
+              className="w-10 h-10 rounded-full bg-[#102942] hover:bg-[#D46238] text-white flex items-center justify-center transition-all shadow-md hover:shadow-lg cursor-pointer"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
