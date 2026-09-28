@@ -3,8 +3,7 @@ import { Hero } from '../components/hero/Hero';
 import { HeroTrustBar } from '../components/hero/HeroTrustBar';
 import { CompanyIntro } from '../components/sections/CompanyIntro';
 import { FeaturedJourneys } from '../components/sections/FeaturedJourneys';
-import { FeaturedTours } from '../components/sections/FeaturedTours';
-import { FeaturedExpeditions } from '../components/sections/FeaturedExpeditions';
+import { ExploreCategories } from '../components/sections/ExploreCategories';
 import { DestinationExperience } from '../components/sections/DestinationExperience';
 import { VoluntaryWork } from '../components/sections/VoluntaryWork';
 import { WhyChooseUs } from '../components/sections/WhyChooseUs';
@@ -33,13 +32,10 @@ export const Home: React.FC = () => {
       {/* 4. Featured Treks */}
       <FeaturedJourneys />
 
-      {/* 5. Featured Tours */}
-      <FeaturedTours />
+      {/* 5. Explore Categories */}
+      <ExploreCategories />
 
-      {/* 6. Featured Expeditions */}
-      <FeaturedExpeditions />
-
-      {/* 7. Featured Destinations */}
+      {/* 6. Featured Destinations */}
       <DestinationExperience />
 
       {/* 8. Volunteer & Community Work */}
