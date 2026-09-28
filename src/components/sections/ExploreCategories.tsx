@@ -29,35 +29,36 @@ export const ExploreCategories: React.FC = () => {
       </svg>
 
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
-        {/* ── Section Header ─────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-12 lg:mb-14">
-          <div className="max-w-2xl">
-            <span className="font-simplon-mono text-[11px] sm:text-xs font-bold tracking-[0.22em] text-[#17201D] uppercase block mb-3">
+        {/* ── Section Header (Centered with less text like Featured Treks) ── */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center justify-center gap-2.5 mb-2.5">
+            <span className="w-5 h-[2px] bg-[#E85D2A] rounded-full" />
+            <span className="font-simplon-mono text-[11px] sm:text-xs font-bold tracking-[0.24em] text-[#E85D2A] uppercase">
               EXPLORE CATEGORIES
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] text-[#102942] font-normal leading-[1.12] tracking-tight">
-              Discover Your Perfect
-              <br />
-              Travel Experience
-            </h2>
-            <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-xl mt-3 font-normal">
-              From Himalayan adventures and ancient cultures to serene nature escapes, discover the
-              many ways to experience Nepal.
-            </p>
+            <span className="w-5 h-[2px] bg-[#E85D2A] rounded-full" />
+          </div>
+
+          {/* Headline - Big & Bold */}
+          <h2 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[56px] text-[#102942] tracking-tight leading-tight">
+            Discover Your Perfect Travel Experience
+          </h2>
+
+          {/* Short Narrative */}
+          <p className="font-sans text-sm sm:text-base text-[#59615D] leading-relaxed max-w-xl mx-auto mt-3 font-normal">
+            Find the perfect way to experience Nepal, from iconic mountain trails to rich cultural escapes.
+          </p>
+
+          {/* Action Link */}
+          <div className="mt-4">
             <Link
               to="/treks"
-              className="inline-flex items-center gap-1.5 text-xs font-simplon-mono font-bold tracking-[0.14em] uppercase text-[#102942] hover:text-[#E85D2A] transition-colors mt-4 group"
+              className="inline-flex items-center gap-1.5 text-xs font-simplon-mono font-bold tracking-[0.14em] uppercase text-[#E85D2A] hover:text-[#102942] transition-colors group"
             >
               <span>View All Categories</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
-          </div>
-
-          {/* Script Handwritten Note */}
-          <div className="font-script text-2xl sm:text-3xl text-[#C26638] leading-tight self-start md:self-center md:text-right select-none pt-2 -rotate-1">
-            <span>Different places.</span>
-            <br />
-            <span>One unforgettable journey.</span>
           </div>
         </div>
 
