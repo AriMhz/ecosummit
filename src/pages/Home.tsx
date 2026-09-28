@@ -31,9 +31,6 @@ export const Home: React.FC = () => {
       {/* 4. Most-Loved Himalayan Journeys */}
       <FeaturedJourneys />
 
-      {/* 5. Why EcoSummit */}
-      <WhyChooseUs />
-
       {/* 7. More Ways to Explore Nepal */}
       <ExploreCategories />
 
@@ -49,8 +46,11 @@ export const Home: React.FC = () => {
       {/* 10.5 Welcome to Nepal - Editorial Invitation & Brand Story */}
       <HimalayanWelcome />
 
-      {/* 11. Cinematic Story Section */}
+      {/* 11. Cinematic Story Section (The Himalayan Essence / Some Journeys Stay With You) */}
       <CinematicStory />
+
+      {/* 11.5 The EcoSummit Standard - Why EcoSummit */}
+      <WhyChooseUs />
 
       {/* 12. Stories from the Trail */}
       <TrailStories />
